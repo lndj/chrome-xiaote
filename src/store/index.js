@@ -10,6 +10,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     foo: 'bar',
+    currentPost: {}
   },
   getters,
   mutations,

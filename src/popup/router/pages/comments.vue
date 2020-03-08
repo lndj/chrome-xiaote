@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <van-nav-bar title="小特社区" :fixed="true" left-arrow @click-left="onClickLeft" />
-      
+    <div style="height:46px;"></div>
     <van-panel class="content-pannel" :icon="user.avatarUrl" :title="user.nickname" :desc="user.tag" status="关注">
 
       <div class="comment-content" v-html="formatContent(community.content)" @click="previewText(formatContent(community.content))"></div>
@@ -21,7 +21,10 @@
       </div>
     </van-panel>
     <div class="comments-title">最新评论</div>
-    <div class="comments-block">
+    <div class="comments-block" v-if="comments.length === 0">
+      <center style="margin-top:10px;color:gray;">暂无评论</center>
+    </div>
+    <div class="comments-block" v-if="comments.length > 0">
       <center v-if="loading" class="comments-content-loading"><van-loading size="24px">评论加载中...</van-loading></center>
       <div v-show="!loading" class="comments-content" v-for="item in comments" :key="item.objectId" >
         <van-row>
@@ -53,7 +56,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
     <div style="height:46px;"></div>
@@ -63,6 +65,7 @@
 <script>
 import { comments, read } from '../../../api/index';
 import moment from 'moment';
+import { mapGetters } from 'vuex'
 import { ImagePreview, Dialog, Toast } from 'vant';
 
 export default {
@@ -73,17 +76,24 @@ export default {
       user: {},
       refreshing: false,
       loading: false,
-      comments: [],
-      isShouldMounted: false
+      comments: []
     };
   },
-  // props: ['community'],
-  mounted() {
-    console.log('评论组件执行 mounted!!!!!');
+  created() {
+    console.log('评论组件执行 created!!!!!');
+    this.community = this.currentPost;
+    this.user = this.currentPost.user;
+    this.readConent();
+    this.onLoad();
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+  },
+  computed: {
+    ...mapGetters([
+      'currentPost'
+    ])
   },
   filters: {
     formatTime: function (value) {
-      // return moment(value * 1000).format("MM-DD HH:mm");
       moment.locale('zh-cn');
       return moment(value * 1000).fromNow();
     }
@@ -108,13 +118,9 @@ export default {
       this.getComments();
     },
     onClickLeft() {
-      this.$parent.isShowComments = false;
-      this.isShouldMounted = false;
+      this.$router.go(-1);
     },
     getComments() {
-      if (!this.isShouldMounted) {
-        return;
-      }
       this.comments = [];
       comments(this.community.objectId).then(res => {
          if (this.refreshing) {
@@ -132,9 +138,6 @@ export default {
       });
     },
     readConent() {
-      if (!this.isShouldMounted) {
-        return;
-      }
       read(this.community.objectId).then(res => {
         console.log('已读:' + this.community.objectId);
       }).catch(err => {
