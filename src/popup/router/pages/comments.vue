@@ -2,8 +2,23 @@
   <div class="container">
     <van-nav-bar title="小特社区" :fixed="true" left-arrow @click-left="onClickLeft" />
     <div style="height:46px;"></div>
-    <van-panel class="content-pannel" :icon="user.avatarUrl" :title="user.nickname" :desc="user.tag" status="关注">
-
+    <van-panel class="content-pannel">
+      <div slot="header" class="panel-header">
+        <van-row gutter="40">
+          <van-col span="4">
+            <van-image style="margin-top:4px;margin-left:6px;" round width="2.1rem" height="2.1rem" :src="user.avatarUrl" />
+          </van-col>
+          <van-col span="12" >
+            <div class="panel-header-nickname">{{ user.nickname }}</div>
+            <br />
+            <div class="panel-header-tag">{{ user.tag }}</div>
+          </van-col>
+          <van-col span="4" offset="4">
+            <div class="follow-btn" v-if="user.isFollowing" @click="follow(user.objectId, 0)">已关注</div>
+            <div class="follow-btn" v-else @click="follow(user.objectId, 1)">关注</div>
+          </van-col>
+        </van-row>  
+      </div>
       <div class="comment-content" v-html="formatContent(community.content)" @click="previewText(formatContent(community.content))"></div>
       <div v-if="community.images && community.images.length > 0" class="commont-img-box">
         <img class="commont-img" v-lazy="firstImageUrl(community.images)" @click="previewImage(community.images)" />
@@ -11,7 +26,10 @@
       <div slot="footer" class="panel-footer">
         <van-row gutter="40">
           <van-col span="8" class="time-label">{{ community.createdAt | formatTime }}</van-col>
-          <van-col span="4" offset="8">
+          <van-col span="4" offset="4">
+            <van-icon class="comment-icon" name="eye-o" :info="community.reads" size="20" />
+          </van-col>
+          <van-col span="4">
             <van-icon class="comment-icon" name="comment-o" :info="community.commentCount" size="20" />
           </van-col>
           <van-col span="4">
@@ -99,8 +117,12 @@ export default {
     }
   },
   methods: {
-    follow(userId) {
-      alert("关注成功！");
+    follow(userId, action) {
+      if (action === 1) {
+        this.$notify('关注功能还未实现');
+      } else {
+        this.$notify('取消关注功能还未实现');
+      }
     },
     formatContent (value) {
       if (!value) return '';
@@ -197,6 +219,23 @@ export default {
     margin-top: 10px;
     margin-bottom: 10px;
     text-align: center;
+  }
+  .panel-header {
+    margin-left: 8px;
+  }
+  .panel-header-nickname {
+    font-size: 14px;
+    vertical-align: middle;
+    margin-left: -30px;
+    margin-top: 3px;
+  }
+  .panel-header-tag {
+    margin-left: -30px;
+    margin-top: -13px;
+    color: gray;
+  }
+  .follow-btn {
+    margin-top: 12.5px;
   }
   .panel-footer {
     margin-top: 3px;
