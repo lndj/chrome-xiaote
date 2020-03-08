@@ -223,13 +223,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.container {
-  // position: relative;
-	// overflow: hidden;
-}
-.content-pannel {
-  
+<style lang="scss">
+.van-info {
+  background-color: #9a9797!important;
 }
 .comment-content {
   margin: 12px 10px 12px 20px;

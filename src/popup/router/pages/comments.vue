@@ -190,61 +190,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .content-pannel {
-    
-  }
-  .comment-content {
-    margin: 12px 10px 12px 20px;
-    font-size: 14px;
-  }
-  .commont-img {
-    margin-left: 20px;
-    width: 100%;
-  }
-  .commont-img-box {
-    width: 400px;
-    height: 180px;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  .comment-icon {
-    float: right;
-  }
-  .like-icon {
-    display: inline;
-  }
-  .load-more-btn {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  .panel-header {
-    margin-left: 8px;
-  }
-  .panel-header-nickname {
-    font-size: 14px;
-    vertical-align: middle;
-    margin-left: -30px;
-    margin-top: 3px;
-  }
-  .panel-header-tag {
-    margin-left: -30px;
-    margin-top: -13px;
-    color: gray;
-  }
-  .follow-btn {
-    margin-top: 12.5px;
-  }
-  .panel-footer {
-    margin-top: 3px;
-  }
-  .time-label {
-    color: #969799;
-    font-size: 12px;
-    line-height: 18px;
-  }
   .comments-title {
     font-size: 20px;
     margin-left: 10px;
