@@ -7,7 +7,7 @@ global.browser = require('webextension-polyfill');
 Vue.prototype.$browser = global.browser;
 
 /* eslint-disable no-new */
-new Vue({
+window.App = new Vue({
   el: '#app',
   store,
   router,

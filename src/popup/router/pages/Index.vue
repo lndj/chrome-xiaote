@@ -4,38 +4,42 @@
       <van-icon name="search" slot="right" @click="search" />
     </van-nav-bar>
     <div style="height:46px;"></div>
-    <!-- <van-notice-bar text="注意：本插件仅仅为方便自身而做，与小特官方无关，请勿用于其他用途，使用的后果自负。" left-icon="volume-o" mode="closeable" /> -->
-    <van-pull-refresh v-model="refreshing" loading-text="数据加载中..."	success-text="数据刷新成功..." @refresh="onRefresh">
-      <van-panel class="content-pannel" v-for="item in list" :key="item.objectId" :icon="item.user.avatarUrl" :title="item.user.nickname" :desc="item.user.tag" status="关注">
+    <transition name="van-slide-left">
+      <comments ref="comments" v-show="isShowComments" />
+    </transition>
+    <div v-show="!isShowComments">
+      <van-notice-bar v-if="isShowNoticeBar" text="注意：本插件仅仅为方便自身而做，与小特官方无关，请勿用于其他用途，使用的后果自负。" left-icon="volume-o" mode="closeable" @close="closeNoticeBar" />
+      <van-pull-refresh v-model="refreshing" loading-text="数据加载中..."	success-text="数据刷新成功..." @refresh="onRefresh">
+        <van-panel class="content-pannel" v-for="item in list" :key="item.objectId" :icon="item.user.avatarUrl" :title="item.user.nickname" :desc="item.user.tag" status="关注">
 
-        <div class="comment-content van-multi-ellipsis--l3" v-html="formatContent(item.content)" @click="previewText(formatContent(item.content))"></div>
-        <div v-if="item.images && item.images.length > 0" class="commont-img-box">
-          <img class="commont-img" v-lazy="firstImageUrl(item.images)" @click="previewImage(item.images)" />
-        </div>
-        <div slot="footer" class="panel-footer">
-          <van-row gutter="40">
-            <van-col span="8" class="time-label">{{ item.createdAt | formatTime }}</van-col>
-            <van-col span="4" offset="8">
-              <van-icon class="comment-icon" name="comment-o" :info="item.commentCount" size="20" />
-            </van-col>
-            <van-col span="4">
-              <van-icon class="like-icon" name="like-o" :info="item.likes" size="20" />
-            </van-col>
-          </van-row>  
-        </div>
-      </van-panel>
-    </van-pull-refresh>
+          <div class="comment-content van-multi-ellipsis--l3" v-html="formatContent(item.content)" @click="previewText(formatContent(item.content))"></div>
+          <div v-if="item.images && item.images.length > 0" class="commont-img-box">
+            <img class="commont-img" v-lazy="firstImageUrl(item.images)" @click="previewImage(item.images)" />
+          </div>
+          <div slot="footer" class="panel-footer">
+            <van-row gutter="40">
+              <van-col span="8" class="time-label">{{ item.createdAt | formatTime }}</van-col>
+              <van-col span="4" offset="8">
+                <van-icon class="comment-icon" name="comment-o" :info="item.commentCount" size="20" @click="comments(item)" />
+              </van-col>
+              <van-col span="4">
+                <van-icon class="like-icon" name="like-o" :info="item.likes" size="20" />
+              </van-col>
+            </van-row>  
+          </div>
+        </van-panel>
+      </van-pull-refresh>
 
-    <center>
-      <van-button v-if="pageIndex > 1" class="load-more-btn" plain hairline :loading="loading" type="info" loading-text="Loading..." text="加载更多" @click="onLoad" />
-    </center>
-    
-    <div style="height:46px;"></div>
-    <van-tabbar v-model="active">
-      <van-tabbar-item icon="home-o" @click="clickTab">推荐</van-tabbar-item>
-      <van-tabbar-item icon="setting-o" @click="clickTab">社区</van-tabbar-item>
-    </van-tabbar>
-    
+      <center>
+        <van-button v-if="pageIndex > 1" class="load-more-btn" plain hairline :loading="loading" type="info" loading-text="Loading..." text="加载更多" @click="onLoad" />
+      </center>
+      
+      <div style="height:46px;"></div>
+      <van-tabbar v-model="active">
+        <van-tabbar-item icon="star-o" @click="clickTab">推荐</van-tabbar-item>
+        <van-tabbar-item icon="home-o" @click="clickTab">社区</van-tabbar-item>
+      </van-tabbar>
+    </div>
   </div>
 </template>
 
@@ -43,8 +47,14 @@
 import { communities, recommends } from '../../../api/index';
 import moment from 'moment';
 import { ImagePreview, Dialog, Toast } from 'vant';
+import Cookies from 'js-cookie';
+import Comments from './comments';
 
 export default {
+  name: "PageIndex",
+  components: { 
+    'comments': Comments
+  },
   data() {
     return {
       list: [],
@@ -53,6 +63,8 @@ export default {
       active: 1,
       pageIndex: 1,
       pageSize: 10,
+      isShowNoticeBar: true,
+      isShowComments: false
     };
   },
   mounted() {
@@ -61,6 +73,13 @@ export default {
       forbidClick: true
     });
     this.onLoad();
+  },
+  created() {
+    const times = Cookies.get('noticeBarCloseTimes') || 0;
+      console.log('=================');
+      console.log(parseInt(times) <= 2);
+      console.log('===================');
+      this.isShowNoticeBar = parseInt(times) <= 2;
   },
   filters: {
     formatTime: function (value) {
@@ -172,6 +191,24 @@ export default {
     },
     search() {
       this.$notify('暂不支持搜索，别着急。');
+    },
+    closeNoticeBar() {
+      this.$notify('你了解了吗，就关闭?');
+      const times = Cookies.get('noticeBarCloseTimes') || 0;
+      const currentTimes = parseInt(times) + 1;
+      console.log('本次设置 Cookie 的关闭次数是：' + currentTimes);
+      Cookies.set('noticeBarCloseTimes', currentTimes);
+    },
+    comments(item) {
+      this.isShowComments = true;
+      console.log(this.$refs);
+      const _this = this.$refs.comments;
+      _this.community = item;
+      _this.user = item.user;
+      _this.isShouldMounted = true;
+      _this.readConent();
+      _this.onLoad();
+      // this.$router.push({ path: 'comments', params: { community: item }});
     }
   }
 }
