@@ -4,8 +4,14 @@
       <van-icon name="search" slot="right" @click="search" />
     </van-nav-bar>
     <div style="height:46px;"></div>
-    <van-notice-bar v-if="isShowNoticeBar" text="注意：本插件仅仅为方便自身而做，与小特官方无关，请勿用于其他用途，使用的后果自负。" left-icon="volume-o" mode="closeable" @close="closeNoticeBar" />
-    <van-pull-refresh v-model="refreshing" loading-text="数据加载中..."	success-text="数据刷新成功..." @refresh="onRefresh">
+    <van-notice-bar
+      v-if="isShowNoticeBar"
+      text="注意：本插件仅仅为方便自身而做，与小特官方无关，请勿用于其他用途，使用的后果自负。"
+      left-icon="volume-o"
+      mode="closeable"
+      @close="closeNoticeBar"
+    />
+    <van-pull-refresh v-model="refreshing" loading-text="数据加载中..." success-text="数据刷新成功..." @refresh="onRefresh">
       <van-panel class="content-pannel" v-for="item in list" :key="item.objectId">
         <!--  :icon="item.user.avatarUrl" :title="item.user.nickname" :desc="item.user.tag" status="关注" -->
         <div slot="header" class="panel-header">
@@ -13,7 +19,7 @@
             <van-col span="4">
               <van-image style="margin-top:4px;margin-left:6px;" round width="2.1rem" height="2.1rem" :src="item.user.avatarUrl" />
             </van-col>
-            <van-col span="12" >
+            <van-col span="12">
               <div class="panel-header-nickname">{{ item.user.nickname }}</div>
               <br />
               <div class="panel-header-tag">{{ item.user.tag }}</div>
@@ -22,7 +28,7 @@
               <div class="follow-btn" v-if="item.user.isFollowing" @click="follow(item.user.objectId, 0)">已关注</div>
               <div class="follow-btn" v-else @click="follow(item.user.objectId, 1)">关注</div>
             </van-col>
-          </van-row>  
+          </van-row>
         </div>
 
         <div class="comment-content van-multi-ellipsis--l3" v-html="formatContent(item.content)" @click="previewText(formatContent(item.content))"></div>
@@ -39,7 +45,7 @@
             <van-col span="4">
               <van-icon class="like-icon" name="like-o" :info="item.likes" size="20" />
             </van-col>
-          </van-row>  
+          </van-row>
         </div>
       </van-panel>
     </van-pull-refresh>
@@ -47,7 +53,7 @@
     <center style="margin-top:8px;">
       <van-button v-if="pageIndex > 1" class="load-more-btn" plain hairline :loading="loading" type="info" loading-text="Loading..." text="加载更多" @click="onLoad" />
     </center>
-    
+
     <div style="height:56px;"></div>
     <van-tabbar v-model="active">
       <van-tabbar-item icon="star-o" @click="clickTab">推荐</van-tabbar-item>
@@ -64,9 +70,9 @@ import Cookies from 'js-cookie';
 import Comments from './comments';
 
 export default {
-  name: "PageIndex",
-  components: { 
-    'comments': Comments
+  name: 'PageIndex',
+  components: {
+    comments: Comments,
   },
   data() {
     return {
@@ -76,29 +82,29 @@ export default {
       active: 1,
       pageIndex: 1,
       pageSize: 10,
-      isShowNoticeBar: true
+      isShowNoticeBar: true,
     };
   },
   mounted() {
     Toast.loading({
       message: 'Loading...',
-      forbidClick: true
+      forbidClick: true,
     });
     this.onLoad();
   },
   created() {
     const times = Cookies.get('noticeBarCloseTimes') || 0;
-      console.log('=================');
-      console.log(parseInt(times) <= 2);
-      console.log('===================');
-      this.isShowNoticeBar = parseInt(times) <= 2;
+    console.log('=================');
+    console.log(parseInt(times) <= 2);
+    console.log('===================');
+    this.isShowNoticeBar = parseInt(times) <= 2;
   },
   filters: {
-    formatTime: function (value) {
+    formatTime: function(value) {
       // return moment(value * 1000).format("MM-DD HH:mm");
       moment.locale('zh-cn');
       return moment(value * 1000).fromNow();
-    }
+    },
   },
   methods: {
     follow(userId, action) {
@@ -108,17 +114,17 @@ export default {
         this.$notify('取消关注功能还未实现');
       }
     },
-    formatContent (value) {
-      return value.replace(/(\r\n|\n|\r)/gm, "<br />");
+    formatContent(value) {
+      return value.replace(/(\r\n|\n|\r)/gm, '<br />');
     },
-    firstImageUrl (images) {
+    firstImageUrl(images) {
       if (!images || images.length === 0) {
-        return "";
+        return '';
       }
       const imgInfo = images[0];
       return imgInfo.url;
     },
-    onLoad() {  
+    onLoad() {
       this.loading = true;
       if (this.active === 1) {
         this.getCommunities(this.pageIndex, this.pageSize);
@@ -127,62 +133,66 @@ export default {
       }
     },
     getCommunities(pageIndex, pageSize) {
-      communities(pageIndex, pageSize).then(res => {
-         if (this.refreshing) {
-          this.refreshing = false;
-        }
-        if (res) {
-          if (this.pageIndex === 1) {
-            this.list = res;
-          } else {
-            res.forEach(item => {
-              this.list.push(item);
-            });
+      communities(pageIndex, pageSize)
+        .then(res => {
+          if (this.refreshing) {
+            this.refreshing = false;
           }
-        }
-        this.pageIndex += 1;
-        Toast.clear();
-        this.loading = false;
-      }).catch(err => {
-        console.error(err)
-        this.$notify('获取数据失败，稍后再试!');
-        this.refreshing = false;
-        this.loading = false;
-        Toast.clear();
-      });
+          if (res) {
+            if (this.pageIndex === 1) {
+              this.list = res;
+            } else {
+              res.forEach(item => {
+                this.list.push(item);
+              });
+            }
+          }
+          this.pageIndex += 1;
+          Toast.clear();
+          this.loading = false;
+        })
+        .catch(err => {
+          console.error(err);
+          this.$notify('获取数据失败，稍后再试!');
+          this.refreshing = false;
+          this.loading = false;
+          Toast.clear();
+        });
     },
     getRecommends(pageIndex, pageSize) {
-      recommends(pageIndex, pageSize).then(res => {
-         if (this.refreshing) {
-          this.refreshing = false;
-        }
-        this.loading = false;
-        if (res) {
-          if (this.pageIndex === 1) {
-            this.list = [];
+      recommends(pageIndex, pageSize)
+        .then(res => {
+          if (this.refreshing) {
+            this.refreshing = false;
           }
-          res.forEach(item => {
-            if (item.type === 1) {
-              this.list.push(item.community);
+          this.loading = false;
+          if (res) {
+            if (this.pageIndex === 1) {
+              this.list = [];
             }
-          });
-        }
-        this.pageIndex += 1;
-        Toast.clear();
-      }).catch(err => {
-        console.error(err)
-        this.$notify('获取数据失败，稍后再试!');
-        Toast.clear();
-        this.refreshing = false;
-        this.loading = false;
-      });
+            res.forEach(item => {
+              if (item.type === 1) {
+                this.list.push(item.community);
+              }
+            });
+          }
+          this.pageIndex += 1;
+          Toast.clear();
+        })
+        .catch(err => {
+          console.error(err);
+          this.$notify('获取数据失败，稍后再试!');
+          Toast.clear();
+          this.refreshing = false;
+          this.loading = false;
+        });
     },
     previewImage(images) {
       const imageList = [];
       images.forEach(img => imageList.push(img.url));
       ImagePreview({
         images: imageList,
-        closeable: true
+        closeable: true,
       });
     },
     previewText(content) {
@@ -190,7 +200,7 @@ export default {
         message: content,
         messageAlign: 'left',
         confirmButtonText: '关闭',
-        closeOnClickOverlay: true
+        closeOnClickOverlay: true,
       }).then(() => {
         // on close
       });
@@ -216,16 +226,16 @@ export default {
       Cookies.set('noticeBarCloseTimes', currentTimes);
     },
     comments(item) {
-      this.$store.commit('READ_POST', {post: item});
-      this.$router.push({path: 'comments'});
-    }
-  }
-}
+      this.$store.commit('READ_POST', { post: item });
+      this.$router.push({ path: 'comments' });
+    },
+  },
+};
 </script>
 
 <style lang="scss">
 .van-info {
-  background-color: #9a9797!important;
+  background-color: #9a9797 !important;
 }
 .comment-content {
   margin: 12px 10px 12px 20px;

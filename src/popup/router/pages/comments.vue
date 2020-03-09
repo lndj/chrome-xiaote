@@ -8,7 +8,7 @@
           <van-col span="4">
             <van-image style="margin-top:4px;margin-left:6px;" round width="2.1rem" height="2.1rem" :src="user.avatarUrl" />
           </van-col>
-          <van-col span="12" >
+          <van-col span="12">
             <div class="panel-header-nickname">{{ user.nickname }}</div>
             <br />
             <div class="panel-header-tag">{{ user.tag }}</div>
@@ -17,7 +17,7 @@
             <div class="follow-btn" v-if="user.isFollowing" @click="follow(user.objectId, 0)">已关注</div>
             <div class="follow-btn" v-else @click="follow(user.objectId, 1)">关注</div>
           </van-col>
-        </van-row>  
+        </van-row>
       </div>
       <div class="comment-content" v-html="formatContent(community.content)"></div>
       <div v-if="community.images && community.images.length > 0" class="commont-img-box">
@@ -35,7 +35,7 @@
           <van-col span="4">
             <van-icon class="like-icon" name="like-o" :info="community.likes" size="20" />
           </van-col>
-        </van-row>  
+        </van-row>
       </div>
     </van-panel>
     <div class="comments-title">最新评论</div>
@@ -44,15 +44,10 @@
     </div>
     <div class="comments-block" v-if="comments.length > 0">
       <center v-if="loading" class="comments-content-loading"><van-loading size="24px">评论加载中...</van-loading></center>
-      <div v-show="!loading" class="comments-content" v-for="item in comments" :key="item.objectId" >
+      <div v-show="!loading" class="comments-content" v-for="item in comments" :key="item.objectId">
         <van-row>
           <van-col span="2" class="time-label" style="padding-top: 4px;">
-            <van-image
-              round
-              width="1.5rem"
-              height="1.5rem"
-              :src="item.user.avatarUrl"
-            />
+            <van-image round width="1.5rem" height="1.5rem" :src="item.user.avatarUrl" />
           </van-col>
           <van-col span="8">
             <p class="comment-nickname">{{ item.user.nickname }}</p>
@@ -63,14 +58,14 @@
         </van-row>
         <p style="margin-left:25px;margin-right:10px;font-size:12px;">{{ item.content }}</p>
         <div style="margin-left:0px;margin-right:10px;" v-if="item.images && item.images.length > 0" @click="previewImage(item.images)">
-          <van-image v-for="img in item.images" :key="img.objectId" :src="img.url"/>
+          <van-image v-for="img in item.images" :key="img.objectId" :src="img.url" />
         </div>
         <div class="comment-reply-block" v-if="item.children && item.children.length > 0">
           <div style="margin-top: 2px;" v-for="child in item.children" :key="child.objectId">
             <span style="font-size: 12px;">{{ child.user.nickname }} 回复 {{ child.replyTo.nickname }}: </span>
             <span style="font-size: 10px;color:#45454a;line-height: 160%;">{{ child.content }}</span>
             <div style="" v-if="child.images && child.images.length > 0" @click="previewImage(child.images)">
-              <van-image v-for="img in child.images" :key="img.objectId" :src="img.url"/>
+              <van-image v-for="img in child.images" :key="img.objectId" :src="img.url" />
             </div>
           </div>
         </div>
@@ -83,18 +78,18 @@
 <script>
 import { comments, read } from '../../../api/index';
 import moment from 'moment';
-import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex';
 import { ImagePreview, Dialog, Toast } from 'vant';
 
 export default {
-  name: "Comments",
+  name: 'Comments',
   data() {
     return {
       community: {},
       user: {},
       refreshing: false,
       loading: false,
-      comments: []
+      comments: [],
     };
   },
   created() {
@@ -106,15 +101,13 @@ export default {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
   },
   computed: {
-    ...mapGetters([
-      'currentPost'
-    ])
+    ...mapGetters(['currentPost']),
   },
   filters: {
-    formatTime: function (value) {
+    formatTime: function(value) {
       moment.locale('zh-cn');
       return moment(value * 1000).fromNow();
-    }
+    },
   },
   methods: {
     follow(userId, action) {
@@ -124,18 +117,18 @@ export default {
         this.$notify('取消关注功能还未实现');
       }
     },
-    formatContent (value) {
+    formatContent(value) {
       if (!value) return '';
-      return value.replace(/(\r\n|\n|\r)/gm, "<br />");
+      return value.replace(/(\r\n|\n|\r)/gm, '<br />');
     },
-    firstImageUrl (images) {
+    firstImageUrl(images) {
       if (!images || images.length === 0) {
-        return "";
+        return '';
       }
       const imgInfo = images[0];
       return imgInfo.url;
     },
-    onLoad() {  
+    onLoad() {
       this.loading = true;
       this.getComments();
     },
@@ -144,35 +137,39 @@ export default {
     },
     getComments() {
       this.comments = [];
-      comments(this.community.objectId).then(res => {
-         if (this.refreshing) {
+      comments(this.community.objectId)
+        .then(res => {
+          if (this.refreshing) {
+            this.refreshing = false;
+          }
+          if (res) {
+            this.comments = res;
+          }
+          this.loading = false;
+        })
+        .catch(err => {
+          console.error(err);
+          this.$notify('获取数据失败，稍后再试!');
           this.refreshing = false;
-        }
-        if (res) {
-          this.comments = res;
-        }
-        this.loading = false;
-      }).catch(err => {
-        console.error(err)
-        this.$notify('获取数据失败，稍后再试!');
-        this.refreshing = false;
-        this.loading = false;
-      });
+          this.loading = false;
+        });
     },
     readConent() {
-      read(this.community.objectId).then(res => {
-        console.log('已读:' + this.community.objectId);
-      }).catch(err => {
-        console.error(err)
-        this.$notify('接口请求出错!');
-      });
+      read(this.community.objectId)
+        .then(res => {
+          console.log('已读:' + this.community.objectId);
+        })
+        .catch(err => {
+          console.error(err);
+          this.$notify('接口请求出错!');
+        });
     },
     previewImage(images) {
       const imageList = [];
       images.forEach(img => imageList.push(img.url));
       ImagePreview({
         images: imageList,
-        closeable: true
+        closeable: true,
       });
     },
     previewText(content) {
@@ -180,41 +177,41 @@ export default {
         message: content,
         messageAlign: 'left',
         confirmButtonText: '关闭',
-        closeOnClickOverlay: true
+        closeOnClickOverlay: true,
       }).then(() => {
         // on close
       });
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-  .comments-title {
-    font-size: 20px;
-    margin-left: 10px;
-    margin-top: 12px;
-  }
-  .comments-content {
-    margin-top: 20px;
-    margin-left: 10px;
-  }
-  .comments-content-loading {
-    margin-top: 10px;
-  }
-  .comment-nickname {
-    vertical-align: middle;
-    margin-top: 8px;
-  }
-  .comment-avatar {
-    padding-top: 8px;
-  }
-  .comment-reply-block {
-    margin-left: 25px;
-    margin-top: 10px;
-    margin-right: 10px;
-    background-color: #fafafa;
-    padding: 6px;
-    border-radius: 8px;
-  }
+.comments-title {
+  font-size: 20px;
+  margin-left: 10px;
+  margin-top: 12px;
+}
+.comments-content {
+  margin-top: 20px;
+  margin-left: 10px;
+}
+.comments-content-loading {
+  margin-top: 10px;
+}
+.comment-nickname {
+  vertical-align: middle;
+  margin-top: 8px;
+}
+.comment-avatar {
+  padding-top: 8px;
+}
+.comment-reply-block {
+  margin-left: 25px;
+  margin-top: 10px;
+  margin-right: 10px;
+  background-color: #fafafa;
+  padding: 6px;
+  border-radius: 8px;
+}
 </style>

@@ -6,5 +6,5 @@ export default {
   },
   [types.READ_POST](state, payload) {
     state.currentPost = payload.post;
-  }
+  },
 };

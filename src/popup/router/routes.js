@@ -6,14 +6,14 @@ export default [
     path: '/',
     component: PageIndex,
     meta: {
-      keepAlive: true
-    }
+      keepAlive: true,
+    },
   },
   {
     path: '/comments',
     component: Comments,
     meta: {
-      keepAlive: false
-    }
-  }
+      keepAlive: false,
+    },
+  },
 ];

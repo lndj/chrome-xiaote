@@ -15,15 +15,14 @@
 <script>
 export default {
   data() {
-    return {
-    };
-  }
+    return {};
+  },
 };
 </script>
 
 <style>
-  .container {
-    width: 414px;
-    height: 736px;
-  }
+.container {
+  width: 414px;
+  height: 736px;
+}
 </style>

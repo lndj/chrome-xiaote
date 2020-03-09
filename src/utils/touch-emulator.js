@@ -9,15 +9,7 @@ var supportTouch = 'ontouchstart' in window;
 
 // polyfills
 if (!document.createTouch) {
-  document.createTouch = function(
-    view,
-    target,
-    identifier,
-    pageX,
-    pageY,
-    screenX,
-    screenY
-  ) {
+  document.createTouch = function(view, target, identifier, pageX, pageY, screenX, screenY) {
     // auto set
     return new Touch(
       target,
@@ -118,11 +110,7 @@ function onMouse(touchType) {
     // The EventTarget on which the touch point started when it was first placed on the surface,
     // even if the touch point has since moved outside the interactive area of that element.
     // also, when the target doesnt exist anymore, we update it
-    if (
-      ev.type === 'mousedown' ||
-      !eventTarget ||
-      (eventTarget && !eventTarget.dispatchEvent)
-    ) {
+    if (ev.type === 'mousedown' || !eventTarget || (eventTarget && !eventTarget.dispatchEvent)) {
       eventTarget = ev.target;
     }
 

@@ -5,7 +5,7 @@ import Config from '../config';
 // 创建axios实例
 const service = axios.create({
   baseURL: Config.BASE_API, // api 的 base_url
-  timeout: Config.timeout // 请求超时时间
+  timeout: Config.timeout, // 请求超时时间
 });
 
 // request拦截器
@@ -40,19 +40,19 @@ service.interceptors.response.use(
       code = error.response.data.status;
     } catch (e) {
       if (error.toString().indexOf('Error: timeout') !== -1) {
-        alert("网络请求超时");
-        return Promise.reject(error)
+        alert('网络请求超时');
+        return Promise.reject(error);
       }
       if (error.toString().indexOf('Error: Network Error') !== -1) {
         Notification.error({
           title: '网络请求错误',
-          duration: 2500
-        })
+          duration: 2500,
+        });
         return Promise.reject(error);
       }
     }
     if (code === 401) {
-      alert("登陆过期了，需要重新登陆");
+      alert('登陆过期了，需要重新登陆');
     }
     return Promise.reject(error);
   }
