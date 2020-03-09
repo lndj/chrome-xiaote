@@ -19,7 +19,7 @@
           </van-col>
         </van-row>  
       </div>
-      <div class="comment-content" v-html="formatContent(community.content)" @click="previewText(formatContent(community.content))"></div>
+      <div class="comment-content" v-html="formatContent(community.content)"></div>
       <div v-if="community.images && community.images.length > 0" class="commont-img-box">
         <img class="commont-img" v-lazy="firstImageUrl(community.images)" @click="previewImage(community.images)" />
       </div>

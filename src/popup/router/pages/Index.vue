@@ -44,11 +44,11 @@
       </van-panel>
     </van-pull-refresh>
 
-    <center>
+    <center style="margin-top:8px;">
       <van-button v-if="pageIndex > 1" class="load-more-btn" plain hairline :loading="loading" type="info" loading-text="Loading..." text="加载更多" @click="onLoad" />
     </center>
     
-    <div style="height:46px;"></div>
+    <div style="height:56px;"></div>
     <van-tabbar v-model="active">
       <van-tabbar-item icon="star-o" @click="clickTab">推荐</van-tabbar-item>
       <van-tabbar-item icon="home-o" @click="clickTab">社区</van-tabbar-item>

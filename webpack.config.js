@@ -76,6 +76,7 @@ const config = {
       { from: 'icons', to: 'icons', ignore: ['icon.xcf'] },
       { from: 'popup/popup.html', to: 'popup/popup.html', transform: transformHtml },
       { from: 'options/options.html', to: 'options/options.html', transform: transformHtml },
+      // { from: 'utils/touch-emulator.js', to: 'popup/touch-emulator.js', transform: transformHtml },
       {
         from: 'manifest.json',
         to: 'manifest.json',

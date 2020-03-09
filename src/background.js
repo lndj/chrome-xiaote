@@ -34,8 +34,8 @@ function autoCheck () {
 
 function init() {
 	autoCheck();
-	// 1min 执行一次
-	setInterval(autoCheck, 60000);
+	// 2min 执行一次
+	setInterval(autoCheck, 120000);
 }
 
 init();
