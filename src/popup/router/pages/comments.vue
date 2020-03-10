@@ -39,11 +39,15 @@
       </div>
     </van-panel>
     <div class="comments-title">最新评论</div>
-    <div class="comments-block" v-if="comments.length === 0">
+    <div class="comments-block" v-if="!loading && comments.length === 0">
       <center style="margin-top:10px;color:gray;">暂无评论</center>
     </div>
+
+    <div class="comments-block" v-if="loading && comments.length === 0">
+      <center class="comments-content-loading"><van-loading size="24px">评论加载中...</van-loading></center>
+    </div>
+    
     <div class="comments-block" v-if="comments.length > 0">
-      <center v-if="loading" class="comments-content-loading"><van-loading size="24px">评论加载中...</van-loading></center>
       <div v-show="!loading" class="comments-content" v-for="item in comments" :key="item.objectId">
         <van-row>
           <van-col span="2" class="time-label" style="padding-top: 4px;">

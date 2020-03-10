@@ -11,6 +11,8 @@ export default new Vuex.Store({
   state: {
     foo: 'bar',
     currentPost: {},
+    currentTab: 1,
+    doubleClickTab: null,
   },
   getters,
   mutations,

@@ -4,13 +4,6 @@
       <van-icon name="search" slot="right" @click="search" />
     </van-nav-bar>
     <div style="height:46px;"></div>
-    <van-notice-bar
-      v-if="isShowNoticeBar"
-      text="注意：本插件仅仅为方便自身而做，与小特官方无关，请勿用于其他用途，使用的后果自负。"
-      left-icon="volume-o"
-      mode="closeable"
-      @close="closeNoticeBar"
-    />
 
     <van-pull-refresh v-model="refreshing" loading-text="数据加载中..." success-text="数据刷新成功..." @refresh="onRefresh">
       <van-panel class="content-pannel" v-for="item in list" :key="item.objectId">
@@ -53,13 +46,12 @@
     <center style="margin-top:8px;">
       <van-button v-if="pageIndex > 1" class="load-more-btn" plain hairline :loading="loading" type="info" loading-text="Loading..." text="加载更多" @click="onLoad" />
     </center>
+
     <div style="height:56px;"></div>
-    
-    <!-- <div style="height:56px;"></div>
     <van-tabbar v-model="active">
       <van-tabbar-item icon="star-o" @click="clickTab">推荐</van-tabbar-item>
       <van-tabbar-item icon="home-o" @click="clickTab">社区</van-tabbar-item>
-    </van-tabbar> -->
+    </van-tabbar>
   </div>
 </template>
 
@@ -68,11 +60,10 @@ import { communities, recommends } from '../../../api/index';
 import moment from 'moment';
 import { ImagePreview, Dialog, Toast } from 'vant';
 import Cookies from 'js-cookie';
-import { formatContent } from '../../../utils/tools';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'PageIndex',
+  name: 'PageRecommends',
   components: {
   },
   data() {
@@ -80,18 +71,19 @@ export default {
       list: [],
       refreshing: false,
       loading: false,
-      // active: 1,
+      active: 1,
       pageIndex: 1,
       pageSize: 10,
       isShowNoticeBar: true,
     };
   },
   computed: {
-    ...mapGetters(['currentTab', 'doubleClickTab']),
+    ...mapGetters(['doubleClickTab']),
   },
   watch: {
     doubleClickTab(newTab, oldTab) {
-      if (newTab.startsWith('1-')) {
+      console.log('=====----======', newTab, oldTab);
+      if (newTab.startsWith('0-')) {
         this.clickTab();
       }
     }
@@ -123,7 +115,7 @@ export default {
       }
     },
     formatContent(value) {
-      return formatContent(value);
+      return value.replace(/(\r\n|\n|\r)/gm, '<br />');
     },
     firstImageUrl(images) {
       if (!images || images.length === 0) {
@@ -134,33 +126,34 @@ export default {
     },
     onLoad() {
       this.loading = true;
-      this.getCommunities(this.pageIndex, this.pageSize);
+      this.getRecommends(this.pageIndex, this.pageSize);
     },
-    getCommunities(pageIndex, pageSize) {
-      communities(pageIndex, pageSize)
+    getRecommends(pageIndex, pageSize) {
+      recommends(pageIndex, pageSize)
         .then(res => {
           if (this.refreshing) {
             this.refreshing = false;
           }
+          this.loading = false;
           if (res) {
             if (this.pageIndex === 1) {
-              this.list = res;
-            } else {
-              res.forEach(item => {
-                this.list.push(item);
-              });
+              this.list = [];
             }
+            res.forEach(item => {
+              if (item.type === 1) {
+                this.list.push(item.community);
+              }
+            });
           }
           this.pageIndex += 1;
           Toast.clear();
-          this.loading = false;
         })
         .catch(err => {
           console.error(err);
           this.$notify('获取数据失败，稍后再试!');
+          Toast.clear();
           this.refreshing = false;
           this.loading = false;
-          Toast.clear();
         });
     },
     previewImage(images) {
