@@ -104,9 +104,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  // overflow: hidden;
-}
 .panel-header-nickname {
   vertical-align: middle;
   margin-top: 13px;
