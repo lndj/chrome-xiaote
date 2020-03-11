@@ -3,4 +3,7 @@
 # 截图
 
 ![](./docs/images/index-page.png)
-
+![](./docs/images/recommend-page.png)
+![](./docs/images/comments-page.png)
+![](./docs/images/image-preview.png)
+![](./docs/images/chrome-notify.png)
