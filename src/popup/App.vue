@@ -10,7 +10,7 @@
       <router-view v-if="!$route.meta.keepAlive"></router-view>
     </transition>
 
-    <tab v-show="getPath() !== '/comments'"></tab>
+    <tab v-show="isShowTab()"></tab>
   </div>
 </template>
 
@@ -41,10 +41,8 @@ export default {
       } else {
         this.transitionName = '';
       }
-      console.log(this.transitionName);
-
-      // 单独的个人中心页面禁止页面滚动
-      if (to.path === '/home') {
+      // 单独的个人中心页面 & 设置页面禁止页面滚动
+      if (to.path === '/home' || to.path === '/settings') {
         window.addEventListener('scroll', noScroll);
       } else {
         window.removeEventListener('scroll', noScroll);
@@ -58,6 +56,9 @@ export default {
     getPath() {
       return this.$router.history.current.path;
     },
+    isShowTab() {
+      return this.getPath() !== '/comments' && this.getPath() !== '/settings';
+    }
   },
 };
 </script>

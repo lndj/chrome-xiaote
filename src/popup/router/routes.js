@@ -2,6 +2,7 @@ import PageIndex from './pages/Index';
 import PageRecommends from './pages/Recommend';
 import UserHome from './pages/Home';
 import Comments from './pages/Comments';
+import Settings from './pages/Settings';
 
 export default [
   {
@@ -30,6 +31,13 @@ export default [
     component: Comments,
     meta: {
       keepAlive: false,
+    },
+  },
+  {
+    path: '/settings',
+    component: Settings,
+    meta: {
+      keepAlive: true,
     },
   },
 ];
