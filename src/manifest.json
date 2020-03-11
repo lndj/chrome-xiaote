@@ -9,7 +9,7 @@
   },
   "permissions": ["storage", "notifications"],
   "browser_action": {
-    "default_title": "小特社区",
+    "default_title": "小特社区-插件版",
     "default_popup": "popup/popup.html"
   },
   "background": {
