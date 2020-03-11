@@ -71,11 +71,11 @@
 </template>
 
 <script>
-import { communities, recommends } from '../../../api/index';
+import { communities, recommends } from '@/api/index';
 import moment from 'moment';
 import { ImagePreview, Dialog, Toast } from 'vant';
 import Cookies from 'js-cookie';
-import { formatContent } from '../../../utils/tools';
+import { formatContent } from '@/utils/tools';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -104,7 +104,7 @@ export default {
   },
   mounted() {
     Toast.loading({
-      duration: 0,
+      duration: 6000,
       message: 'Loading...',
       forbidClick: true,
     });

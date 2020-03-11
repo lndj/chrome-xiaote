@@ -5,6 +5,16 @@ const CopyPlugin = require('copy-webpack-plugin');
 const ExtensionReloader = require('webpack-extension-reloader');
 const { VueLoaderPlugin } = require('vue-loader');
 const { version } = require('./package.json');
+const path = require('path');
+
+function resolve(dir) {
+  console.log('====================')
+  console.log(path.resolve(__dirname, './node_modules'));
+  console.log(__dirname);
+  console.log(path.join(__dirname, '.', dir));
+  console.log('====================')
+  return path.join(__dirname, '.', dir);
+}
 
 const config = {
   mode: process.env.NODE_ENV,
@@ -19,7 +29,12 @@ const config = {
     filename: '[name].js',
   },
   resolve: {
-    extensions: ['.js', '.vue'],
+    modules: [path.resolve(__dirname, './node_modules')],
+    extensions: ['.js', '.vue', '.json', 'jpeg'],
+    alias: {
+      '@': resolve('src'),
+      api: path.resolve(__dirname, '../src/api'),
+    },
   },
   module: {
     rules: [
@@ -45,7 +60,18 @@ const config = {
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader?indentedSyntax'],
       },
       {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        loader: 'url-loader',
+        include: [resolve('src/assets')],
+        options: {
+          name: '[name].[ext]',
+          outputPath: '/images/',
+          emitFile: false,
+        },
+      },
+      {
         test: /\.(png|jpg|jpeg|gif|svg|ico)$/,
+        exclude: [resolve('src/assets')],
         loader: 'file-loader',
         options: {
           name: '[name].[ext]',

@@ -5,9 +5,12 @@ global.browser = require('webextension-polyfill');
 
 console.log(`Hello ${store.getters.foo}!`);
 
+const NEW_POST_NOTICE_CONFIG_KEY = 'newPostNotice';
 var latestObjectId = '';
+var intervalId = null;
 
 function autoCheck() {
+  console.log('正在执行新帖子检测....');
   fetch('https://lcen.xiaote.net/api/v1/communities?page_index=1&page_size=10')
     .then(function(response) {
       if (response.status !== 200) {
@@ -31,9 +34,41 @@ function autoCheck() {
 }
 
 function init() {
-  autoCheck();
-  // 4min 执行一次
-  setInterval(autoCheck, 240000);
+  console.log('初始化后台事件....');
+  chrome.storage.sync.get(NEW_POST_NOTICE_CONFIG_KEY, config => {
+    if (config.newPostNotice) {
+      const openNewPostNitice = config.newPostNotice.openNewPostNitice;
+      const newPostNiticeDeltaMinute = config.newPostNotice.newPostNiticeDeltaMinute;
+      setIntervalNewPostNotice(openNewPostNitice, parseFloat(newPostNiticeDeltaMinute));
+    }
+  });
+
+  newPostNoticeConfigListener();
+}
+
+function setIntervalNewPostNotice(isOpen, deltaMinute){
+    if (!isOpen) {
+      console.log('当前没有开启最新帖子通知功能！');
+      return;
+    }
+    autoCheck();
+    const microTime = deltaMinute * 60 * 1000;
+    intervalId =  setInterval(autoCheck, microTime);
+}
+
+function newPostNoticeConfigListener() {
+  chrome.storage.onChanged.addListener(function(changes, namespace) {
+    for (let key in changes) {
+      console.log('监测到 key 变动', key);
+      if (key === NEW_POST_NOTICE_CONFIG_KEY) {
+        const storageChange = changes[key];
+        const openNewPostNitice = storageChange.newValue.openNewPostNitice;
+        const newPostNiticeDeltaMinute = storageChange.newValue.newPostNiticeDeltaMinute;
+        setIntervalNewPostNotice(openNewPostNitice, parseFloat(newPostNiticeDeltaMinute));
+        return;
+      }
+    }
+  });
 }
 
 init();

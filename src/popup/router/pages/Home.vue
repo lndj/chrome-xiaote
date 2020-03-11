@@ -7,7 +7,7 @@
       <div slot="header" class="panel-header">
         <van-row gutter="40">
           <van-col span="6">
-            <van-image style="margin-top:8px;margin-left:6px;" round width="4rem" height="4rem" :src="user.avatarUrl" />
+            <van-image style="margin-top:6px;margin-bottom:6px;margin-left:6px;" round width="3.8rem" height="3.8rem" :src="user.avatarUrl" />
           </van-col>
           <van-col span="12">
             <div class="panel-header-nickname">{{ user.nickname }}</div>
@@ -22,31 +22,37 @@
     </van-panel>
 
     <div>
-      <van-row class="statistics-block" type="flex" justify="center">
+      <van-grid>
+        <van-grid-item><span class="statistics-num">8</span><span class="statistics-name">发布</span></van-grid-item>
+        <van-grid-item><span class="statistics-num">10</span><span class="statistics-name">获赞</span></van-grid-item>
+        <van-grid-item><span class="statistics-num">8</span><span class="statistics-name">关注</span></van-grid-item>
+        <van-grid-item><span class="statistics-num">800</span><span class="statistics-name">粉丝</span></van-grid-item>
+      </van-grid>
+      <!-- <van-row class="staistics-bltock" type="flex" justify="center">
         <van-col span="5"><span class="statistics-num">8</span><span class="statistics-name">发布</span></van-col>
         <van-col span="5"><span class="statistics-num">20</span><span class="statistics-name">获赞</span></van-col>
         <van-col span="5"><span class="statistics-num">8</span><span class="statistics-name">关注</span></van-col>
         <van-col span="5"><span class="statistics-num">100</span><span class="statistics-name">粉丝</span></van-col>
-      </van-row>
+      </van-row> -->
     </div>
     
-
-    <van-cell title="消息通知" icon="more-o" is-link to="setting" />
-    <van-cell title="我的私信" icon="chat-o" is-link to="setting" />
-    <van-cell title="我的评论" icon="notes-o" is-link to="setting" />
-    <van-cell title="我的收藏" icon="star-o" is-link to="setting" />
-    <van-cell title="系统设置" icon="setting-o" is-link to="setting" />
-
+    <van-cell title="消息通知" icon="more-o" />
+    <van-cell title="我的私信" icon="chat-o" />
+    <van-cell title="我的评论" icon="notes-o" />
+    <van-cell title="我的收藏" icon="star-o" />
+    <van-cell title="系统设置" icon="setting-o" is-link to="settings" />
+    <van-cell title="关于" icon="label-o" is-link to="about" />
 
     <!-- <div style="height:46px;"></div> -->
   </div>
 </template>
 
 <script>
-import { comments, read } from '../../../api/index';
+import { comments, read } from '@/api/index';
 import moment from 'moment';
 import { mapGetters } from 'vuex';
 import { ImagePreview, Dialog, Toast } from 'vant';
+import AvatarImage from '@/assets/images/avatar.jpeg';
 
 export default {
   name: 'Home',
@@ -56,7 +62,7 @@ export default {
       user: {
         nickname: '一毛哥',
         objectId: 'kodslkdlskdsdsdsdsd',
-        avatarUrl: 'http://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqdrJIITE6f8xg0wYJyiaJdBPFLbe3tm8dPvlPHTF86TLo9fZG3K3yR5SaicicXfGE0ibgkR5xwo6ITvg/132',
+        avatarUrl: AvatarImage,
         tag: '上海 * 未认证',
       },
       refreshing: false,
