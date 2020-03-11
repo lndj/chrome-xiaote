@@ -33,7 +33,7 @@ import { mapGetters } from 'vuex';
 import { ImagePreview, Dialog, Toast } from 'vant';
 
 export default {
-  name: 'Comments',
+  name: 'Home',
   data() {
     return {
       community: {},
@@ -49,11 +49,7 @@ export default {
     };
   },
   created() {
-    // this.community = this.currentPost;
-    // this.user = this.currentPost.user;
-    // this.readConent();
-    // this.onLoad();
-    document.body.scrollTop = document.documentElement.scrollTop = 0;
+    // document.body.scrollTop = document.documentElement.scrollTop = 0;
   },
   computed: {
     ...mapGetters(['currentPost']),

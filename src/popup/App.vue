@@ -18,6 +18,10 @@
 import PageTab from './components/Tab';
 // import { mapGetters } from 'vuex';
 
+function noScroll() {
+  window.scrollTo(0, 0);
+}
+
 export default {
   data() {
     return {
@@ -38,6 +42,13 @@ export default {
         this.transitionName = '';
       }
       console.log(this.transitionName);
+
+      // 单独的个人中心页面禁止页面滚动
+      if (to.path === '/home') {
+        window.addEventListener('scroll',  noScroll);
+      } else {
+        window.removeEventListener('scroll',  noScroll);
+      }
     }
   },
   components: {

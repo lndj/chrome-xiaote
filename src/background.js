@@ -20,7 +20,8 @@ function autoCheck() {
           console.log('当前没有新帖子，最新的ID：' + first.objectId);
         } else {
           latestObjectId = first.objectId;
-          chrome.notifications.create(first.objectId, { type: 'basic', iconUrl: './icons/icon_128.png', title: '小特社区有新帖子了!', message: '快快点击去查看吧' }, () => {});
+          const message = first.user.nickname + ': ' + first.content;
+          chrome.notifications.create(first.objectId, { type: 'basic', iconUrl: './icons/icon_128.png', title: '小特社区有新帖子了!', message: message }, () => {});
         }
       });
     })
@@ -31,8 +32,8 @@ function autoCheck() {
 
 function init() {
   autoCheck();
-  // 2min 执行一次
-  setInterval(autoCheck, 120000);
+  // 4min 执行一次
+  setInterval(autoCheck, 240000);
 }
 
 init();

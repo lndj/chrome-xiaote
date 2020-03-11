@@ -6,11 +6,17 @@
     <div style="height:46px;"></div>
 
     <van-pull-refresh v-model="refreshing" loading-text="数据加载中..." success-text="数据刷新成功..." @refresh="onRefresh">
+      <div  v-if="list.length === 0">
+        <van-skeleton title avatar :row="3" />
+        <van-skeleton title avatar :row="3" />
+        <van-skeleton title avatar :row="3" />
+        <van-skeleton title avatar :row="3" />
+      </div>
       <van-panel class="content-pannel" v-for="item in list" :key="item.objectId">
         <div slot="header" class="panel-header">
           <van-row gutter="40">
             <van-col span="4">
-              <van-image style="margin-top:4px;margin-left:6px;" round width="2.1rem" height="2.1rem" :src="item.user.avatarUrl" />
+              <van-image style="margin-top:6px;margin-left:6px;" round width="2.1rem" height="2.1rem" :src="item.user.avatarUrl" />
             </van-col>
             <van-col span="12">
               <div class="panel-header-nickname">{{ item.user.nickname }}</div>
@@ -90,6 +96,7 @@ export default {
   },
   mounted() {
     Toast.loading({
+      duration: 0,
       message: 'Loading...',
       forbidClick: true,
     });

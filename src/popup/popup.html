@@ -8,6 +8,11 @@
   <% if (NODE_ENV === 'development') { %>
   <!-- Load some resources only in development environment -->
   <% } %>
+  <style>
+    body::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
 </head>
 <body ontouchstart>
   <!-- <iframe width="900px" height="1200px" src="https://youzan.github.io/vant/#/en-US/image-preview#show-close-icon" frameborder="0"></iframe> -->
