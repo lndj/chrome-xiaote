@@ -13,14 +13,13 @@
     />
 
     <van-pull-refresh v-model="refreshing" loading-text="数据加载中..." success-text="数据刷新成功..." @refresh="onRefresh">
-
-      <div  v-if="list.length === 0">
+      <div v-if="list.length === 0">
         <van-skeleton title avatar :row="3" />
         <van-skeleton title avatar :row="3" />
         <van-skeleton title avatar :row="3" />
         <van-skeleton title avatar :row="3" />
       </div>
-      
+
       <van-panel class="content-pannel" v-for="item in list" :key="item.objectId">
         <div slot="header" class="panel-header">
           <van-row gutter="40">
@@ -62,7 +61,7 @@
       <van-button v-if="pageIndex > 1" class="load-more-btn" plain hairline :loading="loading" type="info" loading-text="Loading..." text="加载更多" @click="onLoad" />
     </center>
     <div style="height:56px;"></div>
-    
+
     <!-- <div style="height:56px;"></div>
     <van-tabbar v-model="active">
       <van-tabbar-item icon="star-o" @click="clickTab">推荐</van-tabbar-item>
@@ -81,8 +80,7 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'PageIndex',
-  components: {
-  },
+  components: {},
   data() {
     return {
       list: [],
@@ -102,7 +100,7 @@ export default {
       if (newTab.startsWith('1-')) {
         this.clickTab();
       }
-    }
+    },
   },
   mounted() {
     Toast.loading({

@@ -19,9 +19,8 @@
           </van-col>
         </van-row>
       </div>
-  
     </van-panel>
-    
+
     <!-- <div style="height:46px;"></div> -->
   </div>
 </template>

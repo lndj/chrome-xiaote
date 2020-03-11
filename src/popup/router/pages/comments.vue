@@ -46,7 +46,7 @@
     <div class="comments-block" v-if="loading && comments.length === 0">
       <center class="comments-content-loading"><van-loading size="24px">评论加载中...</van-loading></center>
     </div>
-    
+
     <div class="comments-block" v-if="comments.length > 0">
       <div v-show="!loading" class="comments-content" v-for="item in comments" :key="item.objectId">
         <van-row>
