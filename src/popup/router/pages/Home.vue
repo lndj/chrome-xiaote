@@ -21,7 +21,20 @@
       </div>
     </van-panel>
 
-    <van-cell title="消息通知" icon="setting-o" is-link to="setting" />
+    <div>
+      <van-row class="statistics-block" type="flex" justify="center">
+        <van-col span="5"><span class="statistics-num">8</span><span class="statistics-name">发布</span></van-col>
+        <van-col span="5"><span class="statistics-num">20</span><span class="statistics-name">获赞</span></van-col>
+        <van-col span="5"><span class="statistics-num">8</span><span class="statistics-name">关注</span></van-col>
+        <van-col span="5"><span class="statistics-num">100</span><span class="statistics-name">粉丝</span></van-col>
+      </van-row>
+    </div>
+    
+
+    <van-cell title="消息通知" icon="more-o" is-link to="setting" />
+    <van-cell title="我的私信" icon="chat-o" is-link to="setting" />
+    <van-cell title="我的评论" icon="notes-o" is-link to="setting" />
+    <van-cell title="我的收藏" icon="star-o" is-link to="setting" />
     <van-cell title="系统设置" icon="setting-o" is-link to="setting" />
 
 
@@ -102,5 +115,22 @@ export default {
 .panel-header-tag {
   font-size: 14px;
   margin-top: -8px;
+}
+.statistics-block {
+  margin-top: 12px;
+  margin-bottom: 16px;
+}
+.statistics-num {
+    display: block;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+}
+.statistics-name {
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 100;
+    color: gray;
 }
 </style>
