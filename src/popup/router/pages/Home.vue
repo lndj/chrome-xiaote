@@ -41,6 +41,7 @@
     <van-cell title="我的评论" icon="notes-o" />
     <van-cell title="我的收藏" icon="star-o" />
     <van-cell title="系统设置" icon="setting-o" is-link to="settings" />
+    <van-cell title="关于" icon="label-o" is-link to="about" />
 
     <!-- <div style="height:46px;"></div> -->
   </div>

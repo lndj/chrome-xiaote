@@ -103,11 +103,11 @@ export default {
     },
   },
   mounted() {
-    Toast.loading({
-      duration: 0,
-      message: 'Loading...',
-      forbidClick: true,
-    });
+    // Toast.loading({
+    //   duration: 0,
+    //   message: 'Loading...',
+    //   forbidClick: true,
+    // });
     this.onLoad();
   },
   created() {

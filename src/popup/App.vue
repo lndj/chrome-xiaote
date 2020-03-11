@@ -42,7 +42,7 @@ export default {
         this.transitionName = '';
       }
       // 单独的个人中心页面 & 设置页面禁止页面滚动
-      if (to.path === '/home' || to.path === '/settings') {
+      if (to.path === '/home' || to.path === '/settings' || to.path === '/about') {
         window.addEventListener('scroll', noScroll);
       } else {
         window.removeEventListener('scroll', noScroll);
@@ -57,7 +57,8 @@ export default {
       return this.$router.history.current.path;
     },
     isShowTab() {
-      return this.getPath() !== '/comments' && this.getPath() !== '/settings';
+      const path = this.$router.history.current.path;
+      return path !== '/comments' && path !== '/settings' && path != '/about';
     }
   },
 };
