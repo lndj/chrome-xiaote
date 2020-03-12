@@ -10,11 +10,12 @@
         height="8rem"
         :src="AvatarImage"
       />
+      <span>小特社区 - 插件版</span>
     </div>
 
     <div class="about-block">
       
-      <span>本插件进攻学习交流，请勿用于其他用途。</span>
+      <span>本插件仅供学习交流，请勿用于其他用途。</span>
       <span>代码：<a href="https://github.com/lndj/chrome-xiaote" target="_blank">https://github.com/lndj/chrome-xiaote</a></span>
 
       <span style="font-size: 16px;">使用我的 Tesla 推荐码购车，你我均可获得 1500KM 的免费超充额度，邀请链接：<br /><br /> <a href="https://ts.la/lnanddj59482" target="_blank">点我去购买（lnanddj59482）</a></span>

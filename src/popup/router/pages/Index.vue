@@ -4,9 +4,16 @@
       <van-icon name="search" slot="right" @click="search" />
     </van-nav-bar>
     <div style="height:46px;"></div>
-    <van-notice-bar
+    <!-- <van-notice-bar
       v-if="isShowNoticeBar"
       text="注意：本插件仅仅为方便自身而做，与小特官方无关，请勿用于其他用途，使用的后果自负。"
+      left-icon="volume-o"
+      mode="closeable"
+      @close="closeNoticeBar"
+    /> -->
+    <van-notice-bar
+      v-if="isShowNoticeBar"
+      text="按住鼠标下拉，可以刷新页面；双击【推荐】【社区】按钮可以快速回到顶部并刷新。注意：本插件仅仅为方便自身而做，与小特官方无关，请勿用于其他用途，使用的后果自负。"
       left-icon="volume-o"
       mode="closeable"
       @close="closeNoticeBar"
