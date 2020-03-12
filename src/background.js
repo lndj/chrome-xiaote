@@ -6,11 +6,16 @@ global.browser = require('webextension-polyfill');
 console.log(`Hello ${store.getters.foo}!`);
 
 const NEW_POST_NOTICE_CONFIG_KEY = 'newPostNotice';
+const LATEST_POST_ID = "latestPostId";
 var latestObjectId = '';
 var intervalId = null;
+var lastCheckTime = null;
 
 function autoCheck() {
-  console.log('正在执行新帖子检测....');
+  const now = new Date().getTime();
+  console.log('正在执行新帖子检测...., 间隔时间：' + (now/1000 - lastCheckTime/1000));
+  lastCheckTime = now;
+
   fetch('https://lcen.xiaote.net/api/v1/communities?page_index=1&page_size=10')
     .then(function(response) {
       if (response.status !== 200) {
@@ -60,12 +65,16 @@ function newPostNoticeConfigListener() {
   chrome.storage.onChanged.addListener(function(changes, namespace) {
     for (let key in changes) {
       console.log('监测到 key 变动', key);
+
+      const storageChange = changes[key];
       if (key === NEW_POST_NOTICE_CONFIG_KEY) {
-        const storageChange = changes[key];
         const openNewPostNitice = storageChange.newValue.openNewPostNitice;
         const newPostNiticeDeltaMinute = storageChange.newValue.newPostNiticeDeltaMinute;
         setIntervalNewPostNotice(openNewPostNitice, parseFloat(newPostNiticeDeltaMinute));
-        return;
+        continue;
+      }
+      if (key === LATEST_POST_ID) {
+        latestObjectId = storageChange.newValue;
       }
     }
   });

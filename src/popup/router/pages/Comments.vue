@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <van-nav-bar title="小特社区" :fixed="true" left-arrow @click-left="onClickLeft" />
     <div style="height:46px;"></div>
     <van-panel class="content-pannel">
@@ -54,22 +54,25 @@
             <van-image round width="1.5rem" height="1.5rem" :src="item.user.avatarUrl" />
           </van-col>
           <van-col span="8">
-            <p class="comment-nickname">{{ item.user.nickname }}</p>
+            <p class="comment-nickname">{{ item.user.nickname }}</p> <van-tag v-if="isShowAuthorTag(item.user.objectId)" plain style="font-size:1px;">作者</van-tag>
           </van-col>
           <van-col span="4" offset="8" style="margin-top:8px;padding-left:55px;">
             <van-icon class="like-icon" name="good-job-o" :info="item.likes" size="20" />
           </van-col>
         </van-row>
         <p style="margin-left:25px;margin-right:10px;font-size:12px;">{{ item.content }}</p>
-        <div style="margin-left:0px;margin-right:10px;" v-if="item.images && item.images.length > 0" @click="previewImage(item.images)">
-          <van-image v-for="img in item.images" :key="img.objectId" :src="img.url" />
+        <div style="margin-left:0px;margin-right:10px;" v-if="item.images && item.images.length > 0" @click="previewImage(item.images)" class="commont-img-box">
+          <van-image class="commont-img" v-for="img in item.images" :key="img.objectId" :src="img.url" />
         </div>
         <div class="comment-reply-block" v-if="item.children && item.children.length > 0">
           <div style="margin-top: 2px;" v-for="child in item.children" :key="child.objectId">
-            <span style="font-size: 12px;">{{ child.user.nickname }} 回复 {{ child.replyTo.nickname }}: </span>
+            <span style="font-size: 12px;">
+              {{ child.user.nickname }} <van-tag v-if="isShowAuthorTag(child.user.objectId)" plain style="font-size:1px;">作者</van-tag> 回复 
+              {{ child.replyTo.nickname }} <van-tag v-if="isShowAuthorTag(child.replyTo.objectId)" plain style="font-size:1px;">作者</van-tag>: 
+            </span>
             <span style="font-size: 10px;color:#45454a;line-height: 160%;">{{ child.content }}</span>
-            <div style="" v-if="child.images && child.images.length > 0" @click="previewImage(child.images)">
-              <van-image v-for="img in child.images" :key="img.objectId" :src="img.url" />
+            <div style="" v-if="child.images && child.images.length > 0" @click="previewImage(child.images)" class="commont-img-box">
+              <van-image class="commont-img" v-for="img in child.images" :key="img.objectId" :src="img.url" />
             </div>
           </div>
         </div>
@@ -106,6 +109,9 @@ export default {
   },
   computed: {
     ...mapGetters(['currentPost']),
+  },
+  components: {
+    // Previewer: vuePicturePreview,
   },
   filters: {
     formatTime: function(value) {
@@ -185,6 +191,9 @@ export default {
       }).then(() => {
         // on close
       });
+    },
+    isShowAuthorTag(userId) {
+      return this.user.objectId === userId;
     },
   },
 };

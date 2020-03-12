@@ -18,10 +18,32 @@
 import PageTab from './components/Tab';
 // import { mapGetters } from 'vuex';
 
+const ESC_KEY_CODE = 27;
+const W_KEY_CODE = 87;
+
 function noScroll() {
   window.scrollTo(0, 0);
 }
-
+function keyDown(e) {
+　 	const keyCode = e.which;
+　 	const realKey = String.fromCharCode(e.which);
+    console.log("按键码: " + keyCode + " 字符: " + realKey);
+    // 用户按下 Esc 键
+    if (keyCode === ESC_KEY_CODE) {
+      e.preventDefault();
+      // 如果在评论页面，回退一步
+      const path = document.$router.history.current.path;
+      if (path === '/settings' || path === '/comments' || path === '/about') {
+        history.back();
+      }
+    }
+    // 按下 ctrl + w
+    if(keyCode === W_KEY_CODE && navigator.platform.match('Mac') ? e.metaKey : e.ctrlKey) {
+      e.preventDefault();
+      window.close();
+    }
+}
+ 
 export default {
   data() {
     return {
@@ -30,6 +52,10 @@ export default {
   },
   computed: {
     // ...mapGetters(['currentTab']),
+  },
+  created() {
+    document.$router = this.$router;
+    document.onkeydown = keyDown;
   },
   watch: {
     $route(to, from) {
@@ -68,5 +94,11 @@ export default {
 .container {
   width: 414px;
   height: 736px;
+  margin: 0;
+  overflow-x: auto;
+  color: #323233;
+  font-family: PingFang SC, 'Helvetica Neue', Arial, sans-serif;
+  background-color: #f7f8fa;
+  -webkit-font-smoothing: antialiased;
 }
 </style>

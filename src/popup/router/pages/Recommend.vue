@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <van-nav-bar title="小特社区" :fixed="true">
       <van-icon name="search" slot="right" @click="search" />
     </van-nav-bar>

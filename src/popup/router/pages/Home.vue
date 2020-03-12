@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <van-nav-bar title="小特社区" :fixed="true" />
     <div style="height:46px;"></div>
 
