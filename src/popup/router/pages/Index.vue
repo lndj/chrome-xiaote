@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <van-nav-bar title="小特社区" :fixed="true">
       <van-icon name="search" slot="right" @click="search" />
     </van-nav-bar>
@@ -159,6 +159,8 @@ export default {
           if (res) {
             if (this.pageIndex === 1) {
               this.list = res;
+              const first = res[0];
+              this.saveLastestPostId(first.objectId);
             } else {
               res.forEach(item => {
                 this.list.push(item);
@@ -176,6 +178,11 @@ export default {
           this.loading = false;
           Toast.clear();
         });
+    },
+    saveLastestPostId(objectId) {
+      chrome.storage.sync.set({'latestPostId': objectId}, function() {
+        console.log('已经保存最新的帖子的ID: ' + objectId);
+      });
     },
     previewImage(images) {
       const imageList = [];
