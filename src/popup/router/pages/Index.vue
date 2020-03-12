@@ -45,9 +45,9 @@
           </van-row>
         </div>
 
-        <div class="comment-content van-multi-ellipsis--l3" v-html="formatContent(item.content)" @click="previewText(formatContent(item.content))"></div>
+        <div class="comment-content van-multi-ellipsis--l3" v-html="formatContent(item.content)" @click="comments(item)"></div>
         <div v-if="item.images && item.images.length > 0" class="commont-img-box">
-          <img class="commont-img" v-lazy="firstImageUrl(item.images)" @click="previewImage(item.images)" />
+          <img class="commont-img" v-lazy="firstImageUrl(item.images)" @click="imagePreview(item.images)" />
         </div>
 
         <div slot="footer" class="panel-footer">
@@ -80,9 +80,9 @@
 <script>
 import { communities, recommends } from '@/api/index';
 import moment from 'moment';
-import { ImagePreview, Dialog, Toast } from 'vant';
+import { Toast } from 'vant';
 import Cookies from 'js-cookie';
-import { formatContent } from '@/utils/tools';
+import { formatContent, imagePreview, firstImageUrl } from '@/utils/tools';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -136,16 +136,9 @@ export default {
         this.$notify('取消关注功能还未实现');
       }
     },
-    formatContent(value) {
-      return formatContent(value);
-    },
-    firstImageUrl(images) {
-      if (!images || images.length === 0) {
-        return '';
-      }
-      const imgInfo = images[0];
-      return imgInfo.url;
-    },
+    formatContent,
+    imagePreview,
+    firstImageUrl,
     onLoad() {
       this.loading = true;
       this.getCommunities(this.pageIndex, this.pageSize);
@@ -182,24 +175,6 @@ export default {
     saveLastestPostId(objectId) {
       chrome.storage.sync.set({'latestPostId': objectId}, function() {
         console.log('已经保存最新的帖子的ID: ' + objectId);
-      });
-    },
-    previewImage(images) {
-      const imageList = [];
-      images.forEach(img => imageList.push(img.url));
-      ImagePreview({
-        images: imageList,
-        closeable: true,
-      });
-    },
-    previewText(content) {
-      Dialog.alert({
-        message: content,
-        messageAlign: 'left',
-        confirmButtonText: '关闭',
-        closeOnClickOverlay: true,
-      }).then(() => {
-        // on close
       });
     },
     onRefresh() {
