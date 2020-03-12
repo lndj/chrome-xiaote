@@ -21,7 +21,7 @@
       </div>
       <div class="comment-content" v-html="formatContent(community.content)"></div>
       <div v-if="community.images && community.images.length > 0" class="commont-img-box">
-        <img class="commont-img" v-lazy="firstImageUrl(community.images)" @click="previewImage(community.images)" />
+        <img class="commont-img" v-lazy="firstImageUrl(community.images)" @click="imagePreview(community.images)" />
       </div>
       <div slot="footer" class="panel-footer">
         <van-row gutter="40">
@@ -86,7 +86,9 @@
 import { comments, read } from '../../../api/index';
 import moment from 'moment';
 import { mapGetters } from 'vuex';
-import { ImagePreview, Dialog, Toast } from 'vant';
+import { Toast } from 'vant';
+import { formatContent, imagePreview, firstImageUrl } from '@/utils/tools';
+
 
 export default {
   name: 'Comments',
@@ -127,17 +129,9 @@ export default {
         this.$notify('取消关注功能还未实现');
       }
     },
-    formatContent(value) {
-      if (!value) return '';
-      return value.replace(/(\r\n|\n|\r)/gm, '<br />');
-    },
-    firstImageUrl(images) {
-      if (!images || images.length === 0) {
-        return '';
-      }
-      const imgInfo = images[0];
-      return imgInfo.url;
-    },
+    formatContent,
+    imagePreview,
+    firstImageUrl,
     onLoad() {
       this.loading = true;
       this.getComments();
@@ -173,24 +167,6 @@ export default {
           console.error(err);
           this.$notify('接口请求出错!');
         });
-    },
-    previewImage(images) {
-      const imageList = [];
-      images.forEach(img => imageList.push(img.url));
-      ImagePreview({
-        images: imageList,
-        closeable: true,
-      });
-    },
-    previewText(content) {
-      Dialog.alert({
-        message: content,
-        messageAlign: 'left',
-        confirmButtonText: '关闭',
-        closeOnClickOverlay: true,
-      }).then(() => {
-        // on close
-      });
     },
     isShowAuthorTag(userId) {
       return this.user.objectId === userId;

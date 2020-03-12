@@ -31,11 +31,17 @@ function keyDown(e) {
     // 用户按下 Esc 键
     if (keyCode === ESC_KEY_CODE) {
       e.preventDefault();
+      if (window.imagePreviewInstance) {
+        window.imagePreviewInstance.close();
+        window.imagePreviewInstance = null;
+        return;
+      }
       // 如果在评论页面，回退一步
       const path = document.$router.history.current.path;
       if (path === '/settings' || path === '/comments' || path === '/about') {
         history.back();
       }
+      
     }
     // 按下 ctrl + w
     if(keyCode === W_KEY_CODE && navigator.platform.match('Mac') ? e.metaKey : e.ctrlKey) {
@@ -62,7 +68,7 @@ export default {
       console.log(from.path, to.path);
       if ((from.path === '/' || from.path === '/recommends') && to.path === '/comments') {
         this.transitionName = 'van-slide-right';
-      } else if ((to.path === '/' || to.path === '/recommends') && from.path === '/comments') {
+      } else if (from.path === '/comments' && (to.path === '/' || to.path === '/recommends')) {
         this.transitionName = 'van-slide-left';
       } else {
         this.transitionName = '';
