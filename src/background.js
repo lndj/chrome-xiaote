@@ -70,6 +70,7 @@ function newPostNoticeConfigListener() {
       if (key === NEW_POST_NOTICE_CONFIG_KEY) {
         const openNewPostNitice = storageChange.newValue.openNewPostNitice;
         const newPostNiticeDeltaMinute = storageChange.newValue.newPostNiticeDeltaMinute;
+        clearInterval(intervalId);
         setIntervalNewPostNotice(openNewPostNitice, parseFloat(newPostNiticeDeltaMinute));
         continue;
       }
