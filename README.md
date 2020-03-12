@@ -17,7 +17,12 @@
 [点击推荐链接购买](https://ts.la/lnanddj59482)
 
 ## 安装
+
+### 1. Zip 包安装
 请前往 Release 下载最新的 zip 包，安装方式同 Build -> 3 。
+
+### 2. Crx 安装
+下载 请前往 Release 下载最新的 crx 包，进入浏览器扩展程序界面，直接鼠标/触摸板拖入 。
 
 ## Build
 
