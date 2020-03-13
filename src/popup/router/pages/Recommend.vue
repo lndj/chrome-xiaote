@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-nav-bar title="小特社区" :fixed="true">
+    <van-nav-bar title="小特社区" :fixed="true" z-index="2">
       <van-icon name="search" slot="right" @click="search" />
     </van-nav-bar>
     <div style="height:46px;"></div>
@@ -109,6 +109,7 @@ export default {
   created() {
     const times = Cookies.get('noticeBarCloseTimes') || 0;
     this.isShowNoticeBar = parseInt(times) <= 2;
+    document.documentElement.scrollTop = 0;
   },
   filters: {
     formatTime: function(value) {

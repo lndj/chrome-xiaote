@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-nav-bar title="小特社区" :fixed="true">
+    <van-nav-bar title="小特社区" :fixed="true" z-index="2">
       <van-icon name="search" slot="right" @click="search" />
     </van-nav-bar>
     <div style="height:46px;"></div>
@@ -13,7 +13,7 @@
     /> -->
     <van-notice-bar
       v-if="isShowNoticeBar"
-      text="按住鼠标下拉，可以刷新页面；双击【推荐】【社区】按钮可以快速回到顶部并刷新。按下【Esc】可以回到上一页/关闭图片预览。注意：本插件仅仅为方便自身而做，与小特官方无关，请勿用于其他用途，使用的后果自负。"
+      text="按住鼠标下拉，可以刷新页面；双击【推荐】【社区】按钮可以快速回到顶部并刷新。按下【Esc】可以回到上一页/关闭图片预览。注意：本插件仅仅为方便自身而做，与小特官方无关，请勿用于其他用途。"
       left-icon="volume-o"
       mode="closeable"
       @close="closeNoticeBar"

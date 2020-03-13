@@ -1,6 +1,6 @@
 <template>
   <div class="comments-containner">
-    <van-nav-bar title="小特社区" :fixed="true" left-arrow @click-left="onClickLeft" />
+    <van-nav-bar title="小特社区" :fixed="true" z-index="2" left-arrow @click-left="onClickLeft" />
     <div style="height:46px;"></div>
     <van-panel class="content-pannel">
       <div slot="header" class="panel-header">
@@ -52,7 +52,7 @@
     <div class="comments-block" v-if="comments.length > 0">
       <div v-show="!loading" class="comments-content" v-for="item in comments" :key="item.objectId">
         <van-row>
-          <van-col span="2" class="time-label" style="padding-top: 4px;">
+          <van-col span="2" class="time-label">
             <van-image round width="1.5rem" height="1.5rem" :src="item.user.avatarUrl" />
             <van-image v-if="item.user.ownerCertified" class="vip-mark comments-vip-mark" round width="0.6rem" height="0.6rem" :src="VipMarkImage" />
           </van-col>
@@ -63,14 +63,15 @@
             <van-icon class="like-icon" name="good-job-o" :info="item.likes" size="20" />
           </van-col>
         </van-row>
-        <p style="margin-left:25px;margin-right:10px;font-size:12px;">{{ item.content }}</p>
+        <p class="comment-item-content">{{ item.content }}</p>
         <div style="margin-left:0px;margin-right:0px;" v-if="item.images && item.images.length > 0" @click="imagePreview(item.images)" class="comment-img-box">
           <van-image class="common-img" v-for="img in item.images" :key="img.objectId" :src="img.url" />
         </div>
         <div class="comment-reply-block" v-if="item.children && item.children.length > 0">
           <div style="margin-top: 2px;" v-for="child in item.children" :key="child.objectId">
             <span style="font-size: 12px;">
-              {{ child.user.nickname }} <van-tag v-if="isShowAuthorTag(child.user.objectId)" plain style="font-size:1px;">作者</van-tag> 回复 {{ child.replyTo.nickname }}
+              {{ child.user.nickname }} <van-tag v-if="isShowAuthorTag(child.user.objectId)" plain style="font-size:1px;">作者</van-tag>
+              <span class="comment-reply-mark"> 回复 </span> {{ child.replyTo.nickname }}
               <van-tag v-if="isShowAuthorTag(child.replyTo.objectId)" plain style="font-size:1px;">作者</van-tag>:
             </span>
             <span style="font-size: 10px;color:#45454a;line-height: 160%;">{{ child.content }}</span>
@@ -184,11 +185,23 @@ export default {
   font-size: 20px;
   margin-left: 10px;
   margin-top: 12px;
-  margin-bottom: -6px;
+  margin-bottom: 12px;
+}
+.comments-block {
+  background-color: #fff;
+  padding: 10px 0px 20px 0px;
 }
 .comments-content {
-  margin-top: 20px;
-  margin-left: 10px;
+  margin: 10px 0 10px 10px;
+}
+.comment-item-content {
+  margin-left: 25px;
+  margin-right: 10px;
+  font-size: 12px;
+  margin-top: 8px;
+}
+.comment-reply-mark {
+  font-weight: 800;
 }
 .comments-content-loading {
   margin-top: 10px;
@@ -196,6 +209,8 @@ export default {
 .comment-nickname {
   vertical-align: middle;
   margin-top: 8px;
+  margin-bottom: 8px;
+  font-size: 13px;
 }
 .comment-avatar {
   padding-top: 8px;
@@ -204,7 +219,7 @@ export default {
   margin-left: 25px;
   margin-top: 10px;
   margin-right: 10px;
-  background-color: #f1f1f7;
+  background-color: #f4f4fb;
   padding: 6px;
   border-radius: 8px;
 }
@@ -218,6 +233,7 @@ export default {
   overflow-x: hidden;
   overflow-y: hidden;
   margin-bottom: 10px;
+  margin-top: 4px;
   text-align: center;
 }
 .comment-img-box {
