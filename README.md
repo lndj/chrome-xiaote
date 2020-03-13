@@ -1,4 +1,10 @@
-# 小特社区 Chrome 插件版
+小特社区 - 插件版
+![](https://img.shields.io/eclipse-marketplace/l/notepad4e)
+![](https://img.shields.io/github/issues/lndj/chrome-xiaote)
+![Node.js CI](https://github.com/lndj/chrome-xiaote/workflows/Node.js%20CI/badge.svg)
+
+<!-- ![](./docs/images/logo.png) -->
+<image src="./docs/images/logo.png" width="100%" height="100%"></image>
 
 小特社区 Chrome 插件版本，摸鱼等爱车！
 
