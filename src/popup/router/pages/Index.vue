@@ -265,7 +265,7 @@ export default {
 .vip-mark {
   margin-left: 30px;
   position: absolute !important;
-  z-index: 9999;
+  z-index: 2000;
   margin-top: -14px;
 }
 .comments-vip-mark {
