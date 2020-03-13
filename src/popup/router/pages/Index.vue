@@ -13,7 +13,7 @@
     /> -->
     <van-notice-bar
       v-if="isShowNoticeBar"
-      text="按住鼠标下拉，可以刷新页面；双击【推荐】【社区】按钮可以快速回到顶部并刷新。注意：本插件仅仅为方便自身而做，与小特官方无关，请勿用于其他用途，使用的后果自负。"
+      text="按住鼠标下拉，可以刷新页面；双击【推荐】【社区】按钮可以快速回到顶部并刷新。按下【Esc】可以回到上一页/关闭图片预览。注意：本插件仅仅为方便自身而做，与小特官方无关，请勿用于其他用途，使用的后果自负。"
       left-icon="volume-o"
       mode="closeable"
       @close="closeNoticeBar"
@@ -31,7 +31,9 @@
         <div slot="header" class="panel-header">
           <van-row gutter="40">
             <van-col span="4">
-              <van-image style="margin-top:6px;margin-left:6px;" round width="2.1rem" height="2.1rem" :src="item.user.avatarUrl" />
+              <van-image style="margin-top:6px;margin-left:6px;" round width="2.1rem" height="2.1rem" 
+              :src="item.user.avatarUrl" />
+              <van-image v-if="item.user.ownerCertified" class="vip-mark" round width="0.8rem" height="0.8rem" :src="VipMarkImage"/>
             </van-col>
             <van-col span="12">
               <div class="panel-header-nickname">{{ item.user.nickname }}</div>
@@ -78,6 +80,7 @@ import moment from 'moment';
 import { Toast } from 'vant';
 import Cookies from 'js-cookie';
 import { formatContent, imagePreview, firstImageUrl } from '@/utils/tools';
+import VipMarkImage from '@/assets/images/vipMark.png';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -92,6 +95,7 @@ export default {
       pageIndex: 1,
       pageSize: 10,
       isShowNoticeBar: true,
+      VipMarkImage: VipMarkImage,
     };
   },
   computed: {
@@ -259,5 +263,15 @@ export default {
   font-size: 12px;
   line-height: 18px;
   margin-top: 1%;
+}
+.vip-mark {
+  margin-left: 30px;
+  position: absolute!important;
+  z-index: 9999;
+  margin-top: -14px;
+}
+.comments-vip-mark {
+  margin-left: -5px;
+  margin-top: 16px;
 }
 </style>

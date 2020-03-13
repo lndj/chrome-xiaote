@@ -7,6 +7,7 @@
         <van-row gutter="40">
           <van-col span="4">
             <van-image style="margin-top:4px;margin-left:6px;" round width="2.1rem" height="2.1rem" :src="user.avatarUrl" />
+            <van-image v-if="user.ownerCertified" class="vip-mark" round width="0.8rem" height="0.8rem" :src="VipMarkImage"/>
           </van-col>
           <van-col span="12">
             <div class="panel-header-nickname">{{ user.nickname }}</div>
@@ -52,6 +53,7 @@
         <van-row>
           <van-col span="2" class="time-label" style="padding-top: 4px;">
             <van-image round width="1.5rem" height="1.5rem" :src="item.user.avatarUrl" />
+            <van-image v-if="item.user.ownerCertified" class="vip-mark comments-vip-mark" round width="0.6rem" height="0.6rem" :src="VipMarkImage"/>
           </van-col>
           <van-col span="12">
             <p class="comment-nickname">{{ item.user.nickname }} <van-tag v-if="isShowAuthorTag(item.user.objectId)" plain style="font-size:1px;">作者</van-tag></p> 
@@ -88,6 +90,7 @@ import moment from 'moment';
 import { mapGetters } from 'vuex';
 import { Toast } from 'vant';
 import { formatContent, imagePreview, firstImageUrl } from '@/utils/tools';
+import VipMarkImage from '@/assets/images/vipMark.png';
 
 
 export default {
@@ -99,6 +102,7 @@ export default {
       refreshing: false,
       loading: false,
       comments: [],
+      VipMarkImage: VipMarkImage,
     };
   },
   created() {
