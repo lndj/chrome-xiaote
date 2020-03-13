@@ -97,13 +97,15 @@ export default {
 </script>
 
 <style>
-.container {
-  width: 414px;
-  height: 736px;
+body {
+  background-color: #f7f8fa;
   margin: 0;
   color: #323233;
   font-family: PingFang SC, 'Helvetica Neue', Arial, sans-serif;
-  background-color: #f7f8fa;
   -webkit-font-smoothing: antialiased;
+}
+.container {
+  width: 414px;
+  height: 736px;
 }
 </style>

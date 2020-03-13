@@ -69,11 +69,6 @@
     </center>
     <div style="height:56px;"></div>
 
-    <!-- <div style="height:56px;"></div>
-    <van-tabbar v-model="active">
-      <van-tabbar-item icon="star-o" @click="clickTab">推荐</van-tabbar-item>
-      <van-tabbar-item icon="home-o" @click="clickTab">社区</van-tabbar-item>
-    </van-tabbar> -->
   </div>
 </template>
 
@@ -228,9 +223,11 @@ export default {
 }
 .comment-icon {
   float: right;
+  margin-top: 10%;
 }
 .like-icon {
   display: inline;
+  margin-top: 10%;
 }
 .load-more-btn {
   margin-top: 10px;
@@ -261,5 +258,6 @@ export default {
   color: #969799;
   font-size: 12px;
   line-height: 18px;
+  margin-top: 1%;
 }
 </style>

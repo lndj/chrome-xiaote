@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="comments-containner">
     <van-nav-bar title="小特社区" :fixed="true" left-arrow @click-left="onClickLeft" />
     <div style="height:46px;"></div>
     <van-panel class="content-pannel">
@@ -180,6 +180,7 @@ export default {
   font-size: 20px;
   margin-left: 10px;
   margin-top: 12px;
+  margin-bottom: -6px;
 }
 .comments-content {
   margin-top: 20px;
@@ -199,7 +200,7 @@ export default {
   margin-left: 25px;
   margin-top: 10px;
   margin-right: 10px;
-  background-color: #fafafa;
+  background-color: #f1f1f7;;
   padding: 6px;
   border-radius: 8px;
 }

@@ -10,6 +10,13 @@
         height="8rem"
         :src="AvatarImage"
       />
+      <van-image
+        class="about-vip-mark"
+        round
+        width="1.5rem"
+        height="1.5rem"
+        :src="VipMarkImage"
+      />
       <span>小特社区 - 插件版</span>
     </div>
 
@@ -18,14 +25,13 @@
       <span>代码：<a href="https://github.com/lndj/chrome-xiaote" target="_blank">https://github.com/lndj/chrome-xiaote</a></span>
       <span style="font-size: 16px;">使用我的 Tesla 推荐码购车，你我均可获得 1500KM 的免费超充额度，邀请链接：<br /><br /> <a href="https://ts.la/lnanddj59482" target="_blank">点我去购买（lnanddj59482）</a></span>
     </div>
-
-    <!-- <div style="height:46px;"></div> -->
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import AvatarImage from '@/assets/images/avatar.jpeg';
+import VipMarkImage from '@/assets/images/vipMark.png';
 
 
 export default {
@@ -33,6 +39,7 @@ export default {
   data() {
     return {
       AvatarImage: AvatarImage,
+      VipMarkImage: VipMarkImage,
     };
   },
   created() {
@@ -70,6 +77,12 @@ span {
   margin-top: 20px;
   background-color: #fff;
   padding: 20px;
+}
+.about-vip-mark {
+    margin-left: -30px;
+    position: absolute;
+    z-index: 9999;
+    margin-top: 100px;
 }
 a {
   color: rgba(10, 90, 200, 0.6);
