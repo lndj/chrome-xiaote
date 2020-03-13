@@ -35,7 +35,7 @@
         <van-col span="5"><span class="statistics-num">100</span><span class="statistics-name">粉丝</span></van-col>
       </van-row> -->
     </div>
-    
+
     <van-cell title="消息通知" icon="more-o" />
     <van-cell title="我的私信" icon="chat-o" />
     <van-cell title="我的评论" icon="notes-o" />
@@ -124,16 +124,16 @@ export default {
   margin-bottom: 16px;
 }
 .statistics-num {
-    display: block;
-    text-align: center;
-    font-size: 24px;
-    font-weight: 600;
+  display: block;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
 }
 .statistics-name {
-    display: block;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 100;
-    color: gray;
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 100;
+  color: gray;
 }
 </style>

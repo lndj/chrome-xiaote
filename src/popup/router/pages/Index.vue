@@ -31,9 +31,8 @@
         <div slot="header" class="panel-header">
           <van-row gutter="40">
             <van-col span="4">
-              <van-image style="margin-top:6px;margin-left:6px;" round width="2.1rem" height="2.1rem" 
-              :src="item.user.avatarUrl" />
-              <van-image v-if="item.user.ownerCertified" class="vip-mark" round width="0.8rem" height="0.8rem" :src="VipMarkImage"/>
+              <van-image style="margin-top:6px;margin-left:6px;" round width="2.1rem" height="2.1rem" :src="item.user.avatarUrl" />
+              <van-image v-if="item.user.ownerCertified" class="vip-mark" round width="0.8rem" height="0.8rem" :src="VipMarkImage" />
             </van-col>
             <van-col span="12">
               <div class="panel-header-nickname">{{ item.user.nickname }}</div>
@@ -70,7 +69,6 @@
       <van-button v-if="pageIndex > 1" class="load-more-btn" plain hairline :loading="loading" type="info" loading-text="Loading..." text="加载更多" @click="onLoad" />
     </center>
     <div style="height:56px;"></div>
-
   </div>
 </template>
 
@@ -172,7 +170,7 @@ export default {
         });
     },
     saveLastestPostId(objectId) {
-      chrome.storage.sync.set({'latestPostId': objectId}, function() {
+      chrome.storage.sync.set({ latestPostId: objectId }, function() {
         console.log('已经保存最新的帖子的ID: ' + objectId);
       });
     },
@@ -266,7 +264,7 @@ export default {
 }
 .vip-mark {
   margin-left: 30px;
-  position: absolute!important;
+  position: absolute !important;
   z-index: 9999;
   margin-top: -14px;
 }

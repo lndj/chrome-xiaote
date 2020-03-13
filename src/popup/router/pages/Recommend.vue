@@ -17,7 +17,7 @@
           <van-row gutter="40">
             <van-col span="4">
               <van-image style="margin-top:6px;margin-left:6px;" round width="2.1rem" height="2.1rem" :src="item.user.avatarUrl" />
-              <van-image v-if="item.user.ownerCertified" class="vip-mark" round width="0.8rem" height="0.8rem" :src="VipMarkImage"/>
+              <van-image v-if="item.user.ownerCertified" class="vip-mark" round width="0.8rem" height="0.8rem" :src="VipMarkImage" />
             </van-col>
             <van-col span="12">
               <div class="panel-header-nickname">{{ item.user.nickname }}</div>
@@ -188,6 +188,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

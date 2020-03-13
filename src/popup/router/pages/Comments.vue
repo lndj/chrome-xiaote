@@ -7,7 +7,7 @@
         <van-row gutter="40">
           <van-col span="4">
             <van-image style="margin-top:4px;margin-left:6px;" round width="2.1rem" height="2.1rem" :src="user.avatarUrl" />
-            <van-image v-if="user.ownerCertified" class="vip-mark" round width="0.8rem" height="0.8rem" :src="VipMarkImage"/>
+            <van-image v-if="user.ownerCertified" class="vip-mark" round width="0.8rem" height="0.8rem" :src="VipMarkImage" />
           </van-col>
           <van-col span="12">
             <div class="panel-header-nickname">{{ user.nickname }}</div>
@@ -53,10 +53,10 @@
         <van-row>
           <van-col span="2" class="time-label" style="padding-top: 4px;">
             <van-image round width="1.5rem" height="1.5rem" :src="item.user.avatarUrl" />
-            <van-image v-if="item.user.ownerCertified" class="vip-mark comments-vip-mark" round width="0.6rem" height="0.6rem" :src="VipMarkImage"/>
+            <van-image v-if="item.user.ownerCertified" class="vip-mark comments-vip-mark" round width="0.6rem" height="0.6rem" :src="VipMarkImage" />
           </van-col>
           <van-col span="12">
-            <p class="comment-nickname">{{ item.user.nickname }} <van-tag v-if="isShowAuthorTag(item.user.objectId)" plain style="font-size:1px;">作者</van-tag></p> 
+            <p class="comment-nickname">{{ item.user.nickname }} <van-tag v-if="isShowAuthorTag(item.user.objectId)" plain style="font-size:1px;">作者</van-tag></p>
           </van-col>
           <van-col span="4" offset="4" style="margin-top:8px;padding-left:55px;">
             <van-icon class="like-icon" name="good-job-o" :info="item.likes" size="20" />
@@ -69,8 +69,8 @@
         <div class="comment-reply-block" v-if="item.children && item.children.length > 0">
           <div style="margin-top: 2px;" v-for="child in item.children" :key="child.objectId">
             <span style="font-size: 12px;">
-              {{ child.user.nickname }} <van-tag v-if="isShowAuthorTag(child.user.objectId)" plain style="font-size:1px;">作者</van-tag> 回复 
-              {{ child.replyTo.nickname }} <van-tag v-if="isShowAuthorTag(child.replyTo.objectId)" plain style="font-size:1px;">作者</van-tag>: 
+              {{ child.user.nickname }} <van-tag v-if="isShowAuthorTag(child.user.objectId)" plain style="font-size:1px;">作者</van-tag> 回复 {{ child.replyTo.nickname }}
+              <van-tag v-if="isShowAuthorTag(child.replyTo.objectId)" plain style="font-size:1px;">作者</van-tag>:
             </span>
             <span style="font-size: 10px;color:#45454a;line-height: 160%;">{{ child.content }}</span>
             <div v-if="child.images && child.images.length > 0" @click="imagePreview(child.images)" class="child-comment-img-box">
@@ -91,7 +91,6 @@ import { mapGetters } from 'vuex';
 import { Toast } from 'vant';
 import { formatContent, imagePreview, firstImageUrl } from '@/utils/tools';
 import VipMarkImage from '@/assets/images/vipMark.png';
-
 
 export default {
   name: 'Comments',
@@ -204,13 +203,13 @@ export default {
   margin-left: 25px;
   margin-top: 10px;
   margin-right: 10px;
-  background-color: #f1f1f7;;
+  background-color: #f1f1f7;
   padding: 6px;
   border-radius: 8px;
 }
 .child-comment-img {
-    margin-left: 0px!important;
-    width: 100%!important;
+  margin-left: 0px !important;
+  width: 100% !important;
 }
 .child-comment-img-box {
   width: 357px;

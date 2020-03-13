@@ -6,14 +6,14 @@ global.browser = require('webextension-polyfill');
 console.log(`Hello ${store.getters.foo}!`);
 
 const NEW_POST_NOTICE_CONFIG_KEY = 'newPostNotice';
-const LATEST_POST_ID = "latestPostId";
+const LATEST_POST_ID = 'latestPostId';
 var latestObjectId = '';
 var intervalId = null;
 var lastCheckTime = null;
 
 function autoCheck() {
   const now = new Date().getTime();
-  console.log('正在执行新帖子检测...., 间隔时间：' + (now/1000 - lastCheckTime/1000));
+  console.log('正在执行新帖子检测...., 间隔时间：' + (now / 1000 - lastCheckTime / 1000));
   lastCheckTime = now;
 
   fetch('https://lcen.xiaote.net/api/v1/communities?page_index=1&page_size=10')
@@ -51,14 +51,14 @@ function init() {
   newPostNoticeConfigListener();
 }
 
-function setIntervalNewPostNotice(isOpen, deltaMinute){
-    if (!isOpen) {
-      console.log('当前没有开启最新帖子通知功能！');
-      return;
-    }
-    autoCheck();
-    const microTime = deltaMinute * 60 * 1000;
-    intervalId =  setInterval(autoCheck, microTime);
+function setIntervalNewPostNotice(isOpen, deltaMinute) {
+  if (!isOpen) {
+    console.log('当前没有开启最新帖子通知功能！');
+    return;
+  }
+  autoCheck();
+  const microTime = deltaMinute * 60 * 1000;
+  intervalId = setInterval(autoCheck, microTime);
 }
 
 function newPostNoticeConfigListener() {
