@@ -62,11 +62,10 @@ Chrome 设置 -> 更多工具 -> 扩展程序, 打开开发者模式，点击加
 
 
 ## 截图
-<image src="./docs/images/index-page.png" width="50%" height="50%"></image>
-<image src="./docs/images/recommend-page.png" width="50%" height="50%"></image>
-
-![](./docs/images/index-page.png)
-![](./docs/images/recommend-page.png)
-![](./docs/images/comments-page.png)
-![](./docs/images/image-preview.png)
-![](./docs/images/chrome-notify.png)
+<p align="center">
+  <image src="./docs/images/index-page.png" width="50%" height="50%"></image>
+  <image src="./docs/images/recommend-page.png" width="50%" height="50%"></image>
+  <image src="./docs/images/comments-page.png" width="50%" height="50%"></image>
+  <image src="./docs/images/image-preview.png" width="50%" height="50%"></image>
+  <image src="./docs/images/chrome-notify.png" width="100%" height="100%"></image>
+</p>
