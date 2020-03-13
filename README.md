@@ -1,5 +1,5 @@
-## 小特社区 - 插件版
-![](https://img.shields.io/eclipse-marketplace/l/notepad4e)
+## 小特社区 - 浏览器插件版
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ![](https://img.shields.io/github/issues/lndj/chrome-xiaote)
 ![Node.js CI](https://github.com/lndj/chrome-xiaote/workflows/Node.js%20CI/badge.svg)
 
@@ -7,15 +7,16 @@
   <image src="./docs/images/logo.png" width="100%" height="100%"></image>
 </p>
 
-小特社区浏览器插件版本，摸鱼等爱车！
+小特社区浏览器插件版本，摸鱼聊爱车！
 
 > 本插件纯属个人爱好，与小特官方无关，内容版权归属小特 App 及内容发布者。
 
 ## Feature
 
-1. Chrome 插件版本，一点即用，不用频繁刷手机，摸鱼神器！
-2. 帖子更新自动通知，不错过最新消息！
-3. 下方导航按钮支持双击操作，快速回到顶部并刷新。
+1. 浏览器插件版本，一点即用，不用频繁刷手机，摸鱼神器
+2. 帖子更新自动通知，不错过最新消息
+3. 下方导航按钮支持双击操作，快速回到顶部并刷新
+4. 图片高清预览，不遗漏每个细节
 
 ## 插个广告
 
@@ -59,7 +60,7 @@ yarn build-zip
 
 Chrome 设置 -> 更多工具 -> 扩展程序, 打开开发者模式，点击加载已解压的扩展程序
 
-> 只支持 Chrome 浏览器，请使用最新版本，其余不知道能不能用。
+> 支持以 Chrome 作为内核的浏览器，如：谷歌 Chrome 浏览器、360 浏览器、Edge 等，强烈建议使用最新版谷歌 Chrome 浏览器。
 
 
 ## 截图
