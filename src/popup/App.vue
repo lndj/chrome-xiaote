@@ -44,7 +44,7 @@ function keyDown(e) {
       
     }
     // 按下 ctrl + w
-    if(keyCode === W_KEY_CODE && navigator.platform.match('Mac') ? e.metaKey : e.ctrlKey) {
+    if(keyCode === W_KEY_CODE && (navigator.platform.match('Mac') ? e.metaKey : e.ctrlKey)) {
       e.preventDefault();
       window.close();
     }
@@ -101,7 +101,6 @@ export default {
   width: 414px;
   height: 736px;
   margin: 0;
-  overflow-x: auto;
   color: #323233;
   font-family: PingFang SC, 'Helvetica Neue', Arial, sans-serif;
   background-color: #f7f8fa;
