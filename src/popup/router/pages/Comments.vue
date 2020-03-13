@@ -23,6 +23,7 @@
       <div class="comment-content" v-html="formatContent(community.content)"></div>
       <div v-if="community.images && community.images.length > 0" class="commont-img-box">
         <img class="commont-img" v-lazy="firstImageUrl(community.images)" @click="imagePreview(community.images)" />
+        <span v-if="community.images.length > 1" class="image-number">{{ community.images.length }}</span>
       </div>
       <div slot="footer" class="panel-footer">
         <van-row gutter="40">

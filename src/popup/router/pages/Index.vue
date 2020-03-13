@@ -49,6 +49,7 @@
         <div class="comment-content van-multi-ellipsis--l3" v-html="formatContent(item.content)" @click="comments(item)"></div>
         <div v-if="item.images && item.images.length > 0" class="commont-img-box">
           <img class="commont-img" v-lazy="firstImageUrl(item.images)" @click="imagePreview(item.images)" />
+          <span v-if="item.images.length > 1" class="image-number">{{ item.images.length }}</span>
         </div>
 
         <div slot="footer" class="panel-footer">
@@ -203,7 +204,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style>
 .van-info {
   background-color: #9a9797 !important;
 }
@@ -222,6 +223,7 @@ export default {
   overflow-y: hidden;
   margin-bottom: 10px;
   text-align: center;
+  position: relative;
 }
 .comment-icon {
   float: right;
@@ -272,4 +274,17 @@ export default {
   margin-left: -5px;
   margin-top: 16px;
 }
+.image-number {
+  display: block;
+  position: absolute;
+  font-size: 15px;
+  z-index: 2000;
+  color: #fff;
+  bottom: 8px;
+  right: 8px;
+  background-color: rgb(29, 26, 26, 0.8);
+  padding: 1px 15px 1px 15px;
+  border-radius: 15%;
+}
+
 </style>
