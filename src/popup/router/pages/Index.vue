@@ -278,7 +278,7 @@ export default {
   display: block;
   position: absolute;
   font-size: 15px;
-  z-index: 2000;
+  z-index: 1;
   color: #fff;
   bottom: 8px;
   right: 8px;
