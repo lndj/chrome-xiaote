@@ -47,8 +47,8 @@
         </div>
 
         <div class="comment-content van-multi-ellipsis--l3" v-html="formatContent(item.content)" @click="comments(item)"></div>
-        <div v-if="item.images && item.images.length > 0" class="commont-img-box">
-          <img class="commont-img" v-lazy="firstImageUrl(item.images)" @click="imagePreview(item.images)" />
+        <div v-if="item.images && item.images.length > 0" class="common-img-box">
+          <img class="common-img" v-lazy="firstImageUrl(item.images)" @click="imagePreview(item.images)" />
           <span v-if="item.images.length > 1" class="image-number">{{ item.images.length }}</span>
         </div>
 
@@ -212,11 +212,11 @@ export default {
   margin: 12px 10px 12px 20px;
   font-size: 14px;
 }
-.commont-img {
+.common-img {
   margin-left: 20px;
   width: 100%;
 }
-.commont-img-box {
+.common-img-box {
   width: 400px;
   height: 180px;
   overflow-x: hidden;
@@ -286,5 +286,4 @@ export default {
   padding: 1px 15px 1px 15px;
   border-radius: 15%;
 }
-
 </style>

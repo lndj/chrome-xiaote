@@ -21,8 +21,8 @@
         </van-row>
       </div>
       <div class="comment-content" v-html="formatContent(community.content)"></div>
-      <div v-if="community.images && community.images.length > 0" class="commont-img-box">
-        <img class="commont-img" v-lazy="firstImageUrl(community.images)" @click="imagePreview(community.images)" />
+      <div v-if="community.images && community.images.length > 0" class="common-img-box">
+        <img class="common-img" v-lazy="firstImageUrl(community.images)" @click="imagePreview(community.images)" />
         <span v-if="community.images.length > 1" class="image-number">{{ community.images.length }}</span>
       </div>
       <div slot="footer" class="panel-footer">
@@ -65,7 +65,7 @@
         </van-row>
         <p style="margin-left:25px;margin-right:10px;font-size:12px;">{{ item.content }}</p>
         <div style="margin-left:0px;margin-right:0px;" v-if="item.images && item.images.length > 0" @click="imagePreview(item.images)" class="comment-img-box">
-          <van-image class="commont-img" v-for="img in item.images" :key="img.objectId" :src="img.url" />
+          <van-image class="common-img" v-for="img in item.images" :key="img.objectId" :src="img.url" />
         </div>
         <div class="comment-reply-block" v-if="item.children && item.children.length > 0">
           <div style="margin-top: 2px;" v-for="child in item.children" :key="child.objectId">
