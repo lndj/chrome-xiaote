@@ -1,4 +1,4 @@
-小特社区 - 插件版
+## 小特社区 - 插件版
 ![](https://img.shields.io/eclipse-marketplace/l/notepad4e)
 ![](https://img.shields.io/github/issues/lndj/chrome-xiaote)
 ![Node.js CI](https://github.com/lndj/chrome-xiaote/workflows/Node.js%20CI/badge.svg)
@@ -62,6 +62,8 @@ Chrome 设置 -> 更多工具 -> 扩展程序, 打开开发者模式，点击加
 
 
 ## 截图
+<image src="./docs/images/index-page.png" width="50%" height="50%"></image>
+<image src="./docs/images/recommend-page.png" width="50%" height="50%"></image>
 
 ![](./docs/images/index-page.png)
 ![](./docs/images/recommend-page.png)
