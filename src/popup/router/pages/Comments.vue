@@ -53,15 +53,15 @@
           <van-col span="2" class="time-label" style="padding-top: 4px;">
             <van-image round width="1.5rem" height="1.5rem" :src="item.user.avatarUrl" />
           </van-col>
-          <van-col span="8">
-            <p class="comment-nickname">{{ item.user.nickname }}</p> <van-tag v-if="isShowAuthorTag(item.user.objectId)" plain style="font-size:1px;">作者</van-tag>
+          <van-col span="12">
+            <p class="comment-nickname">{{ item.user.nickname }} <van-tag v-if="isShowAuthorTag(item.user.objectId)" plain style="font-size:1px;">作者</van-tag></p> 
           </van-col>
-          <van-col span="4" offset="8" style="margin-top:8px;padding-left:55px;">
+          <van-col span="4" offset="4" style="margin-top:8px;padding-left:55px;">
             <van-icon class="like-icon" name="good-job-o" :info="item.likes" size="20" />
           </van-col>
         </van-row>
         <p style="margin-left:25px;margin-right:10px;font-size:12px;">{{ item.content }}</p>
-        <div style="margin-left:0px;margin-right:10px;" v-if="item.images && item.images.length > 0" @click="previewImage(item.images)" class="commont-img-box">
+        <div style="margin-left:0px;margin-right:0px;" v-if="item.images && item.images.length > 0" @click="imagePreview(item.images)" class="comment-img-box">
           <van-image class="commont-img" v-for="img in item.images" :key="img.objectId" :src="img.url" />
         </div>
         <div class="comment-reply-block" v-if="item.children && item.children.length > 0">
@@ -71,8 +71,8 @@
               {{ child.replyTo.nickname }} <van-tag v-if="isShowAuthorTag(child.replyTo.objectId)" plain style="font-size:1px;">作者</van-tag>: 
             </span>
             <span style="font-size: 10px;color:#45454a;line-height: 160%;">{{ child.content }}</span>
-            <div style="" v-if="child.images && child.images.length > 0" @click="previewImage(child.images)" class="commont-img-box">
-              <van-image class="commont-img" v-for="img in child.images" :key="img.objectId" :src="img.url" />
+            <div v-if="child.images && child.images.length > 0" @click="imagePreview(child.images)" class="child-comment-img-box">
+              <van-image style="width: 100%;" v-for="img in child.images" :key="img.objectId" :src="img.url" />
             </div>
           </div>
         </div>
@@ -202,5 +202,25 @@ export default {
   background-color: #fafafa;
   padding: 6px;
   border-radius: 8px;
+}
+.child-comment-img {
+    margin-left: 0px!important;
+    width: 100%!important;
+}
+.child-comment-img-box {
+  width: 357px;
+  height: 180px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.comment-img-box {
+  width: 390px;
+  height: 180px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  margin-bottom: 10px;
+  text-align: center;
 }
 </style>
