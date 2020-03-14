@@ -4,6 +4,8 @@
 export default {
   BASE_API: 'https://lcen.xiaote.net/api',
 
+  JSON_API: 'https://api.npoint.io',
+
   /**
    * @description token key
    */

@@ -72,6 +72,7 @@ span {
   position: absolute;
   z-index: 9999;
   margin-top: 100px;
+  border: 1px solid #fff;
 }
 a {
   color: rgba(10, 90, 200, 0.6);

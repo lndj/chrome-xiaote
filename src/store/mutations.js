@@ -13,4 +13,7 @@ export default {
   [types.DOUBLE_CLICK_TAB](state, payload) {
     state.doubleClickTab = payload.tab;
   },
+  [types.SET_NOTICE](state, payload) {
+    state.noticeConfig = payload;
+  },
 };
