@@ -293,9 +293,9 @@ export default {
   border-radius: 15%;
 }
 .van-icon-like {
-  color: #e05555!important;
+  color: #e05555 !important;
 }
 .van-icon-good-job {
-  color: #e05555!important;
+  color: #e05555 !important;
 }
 </style>

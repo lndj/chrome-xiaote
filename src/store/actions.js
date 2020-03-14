@@ -51,18 +51,20 @@ export const ToggleLoginPage = ({ commit }, isShowLoginPage) => {
   commit('TOGGLE_LOGIN_PAGE', isShowLoginPage);
 };
 
-export const GetUserInfo =  ({ commit }) => {
+export const GetUserInfo = ({ commit }) => {
   return new Promise((resolve, reject) => {
     const userId = getUserId();
     if (!userId) {
       resolve();
       return;
     }
-    getUserInfo(userId).then(res => {
-      commit('SET_LOGIN_USER', res);
-      resolve(res);
-    }).catch(error => {
-      reject(error);
-    })
-  })
+    getUserInfo(userId)
+      .then(res => {
+        commit('SET_LOGIN_USER', res);
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
 };

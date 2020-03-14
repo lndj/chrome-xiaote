@@ -71,7 +71,6 @@ export function getUserInfo(userId) {
   });
 }
 
-
 export function follow(userId, targetUserId) {
   return request({
     url: '/api/v1/users/' + userId + '/followees',
@@ -101,7 +100,7 @@ export function like(postId) {
 
 export function commentLike(postId, commentId) {
   return request({
-    url: '/api/v1/communities/' + postId + '/comments/'+commentId+'/like',
+    url: '/api/v1/communities/' + postId + '/comments/' + commentId + '/like',
     method: 'post',
   });
 }

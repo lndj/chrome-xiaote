@@ -26,7 +26,7 @@
           <span>短信验证码</span>
         </div>
         <van-form @submit="onSubmitCode" class="login-form">
-          <van-field class="login-form-field" autofocus v-model="smsCode" label="验证码" type="digit" placeholder="请输入验证码" @focus="onCodeFocus" />
+          <van-password-input class="login-form-field" :value="smsCode" :mask="false" :focused="showCodeKeyboard" @focus="onCodeFocus" />
         </van-form>
         <div class="divider-line"><van-divider /></div>
         <div class="login-tips">
@@ -36,7 +36,7 @@
       </div>
 
       <van-number-keyboard :show="showPhoneKeyboard" v-model="phone" close-button-text="完成" extra-key="+" theme="custom" @blur="showPhoneKeyboard = false" />
-      <van-number-keyboard :show="showCodeKeyboard" v-model="smsCode" close-button-text="完成" theme="custom" @blur="showCodeKeyboard = false" />
+      <van-number-keyboard :show="showCodeKeyboard" v-model="smsCode" @blur="showCodeKeyboard = false" />
     </van-popup>
   </div>
 </template>
@@ -86,7 +86,7 @@ export default {
     },
     show(v) {
       this.isShowPopup = v;
-    }
+    },
   },
   created() {
     const cachePhoene = Cookies.get(LOGIN_PHONE_COOKIE_KEY) || '';
@@ -149,11 +149,10 @@ export default {
       if (this.hasSentSms) {
         this.$toast.success('验证码已发送');
       }
-
       // Cookies.set(LOGIN_PHONE_COOKIE_KEY, this.phone);
       // this.lastSendTime = parseInt(new Date().getTime() / 1000);
-      // this.hasSentSms = true;
       // this.countdownSeconds = SEND_SMS_TIME_INTERVAL;
+      // this.smsCode = '';
       // this.intervalId = setInterval(() => {
       //   this.countdownSeconds -= 1;
       //   if (this.countdownSeconds === 0) {
@@ -163,6 +162,7 @@ export default {
       // if (this.hasSentSms) {
       //   this.$toast.success('验证码已发送');
       // }
+      // this.hasSentSms = true;
     },
     onSubmitCode() {
       const toast = this.$toast.loading({
@@ -218,10 +218,12 @@ export default {
   margin: 3% 0 0 40px;
 }
 .login-form-field {
-  padding-left: 0;
+  margin-top: 60px;
+  margin-right: 40px;
+  margin-left: 0;
 }
 .divider-line {
-  margin: -18px 40px 0 40px;
+  margin: 0 30px 0 30px;
 }
 .login-tips {
   font-size: 12px;

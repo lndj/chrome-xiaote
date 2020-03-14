@@ -44,7 +44,7 @@ export function followUser(userId, action, postItemUser) {
   }
 }
 
-export const likePost =  _.throttle((postItem, isComment) => {
+export const likePost = _.throttle((postItem, isComment) => {
   if (!checkLogin()) {
     return;
   }
@@ -54,16 +54,18 @@ export const likePost =  _.throttle((postItem, isComment) => {
   postItem.likes += 1;
   postItem.isLike = true;
   if (isComment) {
-    commentLike(postItem.communityId, postItem.objectId).then(res => {
-    }).catch(err => {
+    commentLike(postItem.communityId, postItem.objectId)
+      .then(res => {})
+      .catch(err => {
+        postItem.likes -= 1;
+        postItem.isLike = false;
+      });
+    return;
+  }
+  like(postItem.objectId)
+    .then(res => {})
+    .catch(err => {
       postItem.likes -= 1;
       postItem.isLike = false;
     });
-    return;
-  }
-  like(postItem.objectId).then(res => {
-  }).catch(err => {
-    postItem.likes -= 1;
-    postItem.isLike = false;
-  });
 }, 2000);
