@@ -2,7 +2,9 @@
  * @description 系统全局配置
  */
 export default {
-  BASE_API: 'https://lcen.xiaote.net/api',
+  BASE_API: 'https://lcen.xiaote.net',
+
+  AUTH_API: 'https://lcapi.xiaote.net',
 
   JSON_API: 'https://api.npoint.io',
 
@@ -11,8 +13,12 @@ export default {
    */
   TokenKey: 'X-LC-Session',
 
+  UserIdKey: 'X-LC-Uid',
+
   /**
    * @description 请求超时时间，毫秒（默认2分钟）
    */
   timeout: 1200000,
+
+  tokenCookieExpires: 3600 * 24 * 10,
 };

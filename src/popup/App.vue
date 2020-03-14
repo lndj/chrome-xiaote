@@ -11,12 +11,15 @@
     </transition>
 
     <tab v-show="isShowTab()"></tab>
+
+    <login :show="isShowLoginPage" @loginPageClose="loginPageClose"></login>
   </div>
 </template>
 
 <script>
 import PageTab from './components/Tab';
-// import { mapGetters } from 'vuex';
+import LoginPage from './components/Login';
+import { mapGetters } from 'vuex';
 
 const ESC_KEY_CODE = 27;
 const W_KEY_CODE = 87;
@@ -56,11 +59,12 @@ export default {
     };
   },
   computed: {
-    // ...mapGetters(['currentTab']),
+    ...mapGetters(['isShowLoginPage']),
   },
   created() {
     document.$router = this.$router;
     document.onkeydown = keyDown;
+    this.$store.dispatch('GetUserInfo');
   },
   watch: {
     $route(to, from) {
@@ -82,6 +86,7 @@ export default {
   },
   components: {
     tab: PageTab,
+    login: LoginPage,
   },
   methods: {
     getPath() {
@@ -90,6 +95,9 @@ export default {
     isShowTab() {
       const path = this.$router.history.current.path;
       return path !== '/comments' && path !== '/settings' && path != '/about';
+    },
+    loginPageClose() {
+      this.$store.dispatch('ToggleLoginPage', false);
     },
   },
 };

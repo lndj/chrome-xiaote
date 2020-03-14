@@ -16,4 +16,16 @@ export default {
   [types.SET_NOTICE](state, payload) {
     state.noticeConfig = payload;
   },
+  [types.SET_STATISTICS](state, payload) {
+    state.userStatistics = payload;
+  },
+  [types.SET_SESSION_TOKEN](state, sessionToken) {
+    state.sessionToken = sessionToken;
+  },
+  [types.SET_LOGIN_USER](state, loginUser) {
+    state.loginUser = loginUser;
+  },
+  [types.TOGGLE_LOGIN_PAGE](state, isShowLoginPage) {
+    state.isShowLoginPage = isShowLoginPage;
+  },
 };
