@@ -45,6 +45,9 @@ export function followUser(userId, action, postItemUser) {
 }
 
 export const likePost =  _.throttle((postItem, isComment) => {
+  if (!checkLogin()) {
+    return;
+  }
   if (postItem.isLike) {
     return;
   }

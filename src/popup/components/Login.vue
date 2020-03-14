@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-popup v-model="isShowPopup" round lock-scroll position="bottom" :style="{ height: '100%' }" :get-container="getContainer" @open="open">
+    <van-popup v-model="isShowPopup" round lock-scroll position="bottom" :style="{ height: '90%' }" :get-container="getContainer" @open="open">
       <div class="login-form-block" v-if="!hasSentSms">
         <van-icon class="return-button" size="24px" name="arrow-left" @click="doClose" />
         <div class="login-title">
