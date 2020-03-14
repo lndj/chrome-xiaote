@@ -1,23 +1,10 @@
 <template>
   <div>
-    <van-nav-bar title="小特社区" :fixed="true" z-index="2">
+    <van-nav-bar title="小特社区" :fixed="true" z-index="2001">
       <van-icon name="search" slot="right" @click="search" />
     </van-nav-bar>
     <div style="height:46px;"></div>
-    <!-- <van-notice-bar
-      v-if="isShowNoticeBar"
-      text="注意：本插件仅仅为方便自身而做，与小特官方无关，请勿用于其他用途，使用的后果自负。"
-      left-icon="volume-o"
-      mode="closeable"
-      @close="closeNoticeBar"
-    /> -->
-    <van-notice-bar
-      v-if="isShowNoticeBar"
-      text="按住鼠标下拉，可以刷新页面；双击【推荐】【社区】按钮可以快速回到顶部并刷新。按下【Esc】可以回到上一页/关闭图片预览。注意：本插件仅仅为方便自身而做，与小特官方无关，请勿用于其他用途。"
-      left-icon="volume-o"
-      mode="closeable"
-      @close="closeNoticeBar"
-    />
+    <van-notice-bar v-if="isShowNoticeBar" :text="noticeContent" left-icon="volume-o" mode="closeable" @close="closeNoticeBar" />
 
     <van-pull-refresh v-model="refreshing" loading-text="数据加载中..." success-text="数据刷新成功..." @refresh="onRefresh">
       <div v-if="list.length === 0">
@@ -34,7 +21,7 @@
               <van-image style="margin-top:6px;margin-left:6px;" round width="2.1rem" height="2.1rem" :src="item.user.avatarUrl" />
               <van-image v-if="item.user.ownerCertified" class="vip-mark" round width="0.8rem" height="0.8rem" :src="VipMarkImage" />
             </van-col>
-            <van-col span="12">
+            <van-col span="12" style="padding-left:25px;">
               <div class="panel-header-nickname">{{ item.user.nickname }}</div>
               <br />
               <div class="panel-header-tag">{{ item.user.tag }}</div>
@@ -90,15 +77,16 @@ export default {
       list: [],
       refreshing: false,
       loading: false,
-      // active: 1,
       pageIndex: 1,
       pageSize: 10,
-      isShowNoticeBar: true,
+      isShowNoticeBar: false,
       VipMarkImage: VipMarkImage,
+      noticeContent: null,
+      closeNoticeTips: null,
     };
   },
   computed: {
-    ...mapGetters(['currentTab', 'doubleClickTab']),
+    ...mapGetters(['doubleClickTab', 'noticeConfig']),
   },
   watch: {
     doubleClickTab(newTab, oldTab) {
@@ -116,8 +104,28 @@ export default {
     this.onLoad();
   },
   created() {
-    const times = Cookies.get('noticeBarCloseTimes') || 0;
-    this.isShowNoticeBar = parseInt(times) <= 2;
+    this.$store
+      .dispatch('GetNotice')
+      .then(() => {
+        console.log(this.noticeConfig);
+        if (!this.noticeConfig) {
+          return;
+        }
+        const hadTimes = Cookies.get('noticeBarCloseTimes') || 0;
+        const closeTimes = this.noticeConfig.closeTimes;
+        const notice = this.noticeConfig.notice;
+        console.log('公告配置：', closeTimes, notice);
+        if (hadTimes >= closeTimes) {
+          console.log('已经达到【公告】不再显示条件');
+          return;
+        }
+        this.noticeContent = notice;
+        this.closeNoticeTips = this.noticeConfig.closeTips;
+        this.isShowNoticeBar = true;
+      })
+      .catch(err => {
+        console.error(err);
+      });
   },
   filters: {
     formatTime: function(value) {
@@ -128,7 +136,9 @@ export default {
   },
   methods: {
     follow(userId, action) {
+      console.log('关注操作：userId=' + userId, action);
       if (action === 1) {
+        Toast('关注成功！');
         this.$notify('关注功能还未实现');
       } else {
         this.$notify('取消关注功能还未实现');
@@ -190,7 +200,7 @@ export default {
       this.$notify('暂不支持搜索，别着急。');
     },
     closeNoticeBar() {
-      this.$notify('你了解了吗，就关闭?');
+      this.$notify({ type: 'primary', message: this.closeNoticeTips || '你了解了吗，就关闭?' });
       const times = Cookies.get('noticeBarCloseTimes') || 0;
       const currentTimes = parseInt(times) + 1;
       console.log('本次设置 Cookie 的关闭次数是：' + currentTimes);
@@ -269,6 +279,7 @@ export default {
   position: absolute !important;
   z-index: 2000;
   margin-top: -14px;
+  border: 1px solid #fff;
 }
 .comments-vip-mark {
   margin-left: -5px;

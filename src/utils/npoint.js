@@ -1,29 +1,12 @@
 import axios from 'axios';
-import { getToken } from './auth';
 import Config from '../config';
 import { Notify } from 'vant';
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: Config.BASE_API, // api 的 base_url
-  timeout: Config.timeout, // 请求超时时间
+  baseURL: Config.JSON_API,
+  timeout: Config.timeout,
 });
-
-// request拦截器
-service.interceptors.request.use(
-  config => {
-    if (getToken()) {
-      config.headers['X-LC-Session'] = getToken(); // 让每个请求携带自定义token 请根据实际情况自行修改
-    }
-    config.headers['Content-Type'] = 'application/json';
-    return config;
-  },
-  error => {
-    // Do something with request error
-    console.log(error); // for debug
-    Promise.reject(error);
-  }
-);
 
 // response 拦截器
 service.interceptors.response.use(

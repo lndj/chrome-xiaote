@@ -106,5 +106,6 @@ body {
 .container {
   width: 414px;
   height: 736px;
+  margin: auto;
 }
 </style>

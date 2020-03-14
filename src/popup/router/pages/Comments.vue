@@ -1,6 +1,6 @@
 <template>
   <div class="comments-containner">
-    <van-nav-bar title="小特社区" :fixed="true" z-index="2" left-arrow @click-left="onClickLeft" />
+    <van-nav-bar title="小特社区" :fixed="true" z-index="2001" left-arrow @click-left="onClickLeft" />
     <div style="height:46px;"></div>
     <van-panel class="content-pannel">
       <div slot="header" class="panel-header">
@@ -9,7 +9,7 @@
             <van-image style="margin-top:4px;margin-left:6px;" round width="2.1rem" height="2.1rem" :src="user.avatarUrl" />
             <van-image v-if="user.ownerCertified" class="vip-mark" round width="0.8rem" height="0.8rem" :src="VipMarkImage" />
           </van-col>
-          <van-col span="12">
+          <van-col span="12" style="padding-left:25px;">
             <div class="panel-header-nickname">{{ user.nickname }}</div>
             <br />
             <div class="panel-header-tag">{{ user.tag }}</div>

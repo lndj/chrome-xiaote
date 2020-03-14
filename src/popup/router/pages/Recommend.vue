@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-nav-bar title="小特社区" :fixed="true" z-index="2">
+    <van-nav-bar title="小特社区" :fixed="true" z-index="2001">
       <van-icon name="search" slot="right" @click="search" />
     </van-nav-bar>
     <div style="height:46px;"></div>
@@ -19,7 +19,7 @@
               <van-image style="margin-top:6px;margin-left:6px;" round width="2.1rem" height="2.1rem" :src="item.user.avatarUrl" />
               <van-image v-if="item.user.ownerCertified" class="vip-mark" round width="0.8rem" height="0.8rem" :src="VipMarkImage" />
             </van-col>
-            <van-col span="12">
+            <van-col span="12" style="padding-left:25px;">
               <div class="panel-header-nickname">{{ item.user.nickname }}</div>
               <br />
               <div class="panel-header-tag">{{ item.user.tag }}</div>
