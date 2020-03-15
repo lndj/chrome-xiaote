@@ -2,8 +2,7 @@
  * @description 系统全局配置
  */
 export default {
-
-  AppName: "小特社区",
+  AppName: '小特社区',
 
   BASE_API: 'https://lcen.xiaote.net',
 

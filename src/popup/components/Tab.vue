@@ -29,7 +29,7 @@ export default {
     currentTab: function(value) {
       console.log('currentTab:' + value);
       this.active = value;
-    }
+    },
   },
   methods: {
     search() {

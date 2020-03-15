@@ -1,8 +1,7 @@
 import router from './index';
 import Config from '@/config/index';
-import store from '../../store/index'
+import store from '../../store/index';
 import { noScroll } from '@/utils/tools';
-
 
 router.beforeEach((to, from, next) => {
   if (to.meta.title) {
@@ -17,7 +16,7 @@ router.beforeEach((to, from, next) => {
     // store.commit('TOGGLE_TAB_BAR', false);
   }
 
-  const transitionName = to.meta.transitionName; 
+  const transitionName = to.meta.transitionName;
   if (transitionName === null || transitionName === undefined) {
     const fromRouterLevel = from.meta.routerLevel;
     const toRouterLevel = to.meta.routerLevel;

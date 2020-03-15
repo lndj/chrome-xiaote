@@ -17,7 +17,7 @@ export function imagePreview(images) {
   });
 }
 
-export function  keyDown(e) {
+export function keyDown(e) {
   const ESC_KEY_CODE = 27;
   const W_KEY_CODE = 87;
 

@@ -22,8 +22,7 @@ import { keyDown } from '@/utils/tools';
 
 export default {
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
     ...mapGetters(['isShowLoginPage', 'isShowTabBar', 'transitionName']),
