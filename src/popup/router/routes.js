@@ -4,6 +4,7 @@ import UserHome from './pages/Home';
 import Comments from './pages/Comments';
 import Settings from './pages/Settings';
 import About from './pages/About';
+import Account from './pages/Account';
 
 export default [
   {
@@ -59,6 +60,17 @@ export default [
   {
     path: '/about',
     component: About,
+    meta: {
+      keepAlive: true,
+      noScroll: true,
+      isShowTabBar: false,
+      routerLevel: 2,
+      transitionName: '',
+    },
+  },
+  {
+    path: '/account',
+    component: Account,
     meta: {
       keepAlive: true,
       noScroll: true,

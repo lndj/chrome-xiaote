@@ -14,7 +14,7 @@
             <br />
             <div class="panel-header-tag">{{ user.signature }}</div>
           </van-col>
-          <van-col span="4" offset="2">
+          <van-col span="4" offset="2" @click="goToAccount">
             <van-icon style="margin-top:24px;" size="20" name="arrow" />
           </van-col>
         </van-row>
@@ -75,17 +75,8 @@ export default {
   name: 'Home',
   data() {
     return {
-      community: {},
-      user: {
-        nickname: '未登录',
-        objectId: null,
-        avatarUrl: AvatarImage,
-        signature: '登陆后使用完整功能',
-      },
+      user: {},
       statistics: {},
-      refreshing: false,
-      loading: false,
-      comments: [],
     };
   },
   created() {
@@ -107,8 +98,16 @@ export default {
   },
   methods: {
     init() {
+      const defaultUser = {
+        nickname: '未登录',
+        objectId: null,
+        avatarUrl: AvatarImage,
+        signature: '登陆后使用完整功能',
+      };
       if (this.loginUser.objectId) {
         this.user = this.loginUser;
+      } else {
+        this.user = defaultUser;
       }
       const userId = this.user.objectId;
       if (userId) {
@@ -119,6 +118,9 @@ export default {
     },
     login() {
       this.$store.dispatch('ToggleLoginPage', true);
+    },
+    goToAccount() {
+      this.$router.push({ path: 'account' });
     },
   },
 };

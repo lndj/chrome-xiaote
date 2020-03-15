@@ -1,5 +1,5 @@
 import * as types from './mutation-types';
-import { getToken, setToken, removeToken, getUserId, setUserId } from '@/utils/auth';
+import { getToken, setToken, removeToken, getUserId, setUserId, removeUserId } from '@/utils/auth';
 import { notice } from '@/api/json';
 import { statistics, getUserInfo } from '@/api/index';
 
@@ -46,6 +46,16 @@ export const Login = ({ commit }, userInfo) => {
   });
 };
 
+export const Logout = ({ commit }) => {
+  return new Promise((resolve, reject) => {
+    commit('SET_SESSION_TOKEN', null);
+    removeToken();
+    removeUserId();
+    commit('SET_LOGIN_USER', {});
+    resolve();
+  });
+};
+
 export const ToggleLoginPage = ({ commit }, isShowLoginPage) => {
   commit('TOGGLE_LOGIN_PAGE', isShowLoginPage);
 };
@@ -67,6 +77,7 @@ export const GetUserInfo = ({ commit }) => {
     }
     getUserInfo(userId)
       .then(res => {
+        console.log(res);
         commit('SET_LOGIN_USER', res);
         resolve(res);
       })
