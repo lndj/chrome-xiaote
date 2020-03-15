@@ -18,6 +18,8 @@ export default new Vuex.Store({
     loginUser: {},
     sessionToken: null,
     isShowLoginPage: false,
+    isShowTabBar: true,
+    transitionName: '',
   },
   getters,
   mutations,

@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'PageTab',
   data() {
@@ -17,11 +19,17 @@ export default {
       active: 1,
     };
   },
-  computed: {},
+  computed: {
+    ...mapGetters(['currentTab']),
+  },
   watch: {
     active: function(value) {
-      this.$store.commit('CHANGE_CURRENT_TAB', { tab: value });
+      this.$store.commit('CHANGE_CURRENT_TAB', value);
     },
+    currentTab: function(value) {
+      console.log('currentTab:' + value);
+      this.active = value;
+    }
   },
   methods: {
     search() {
@@ -29,7 +37,7 @@ export default {
     },
     doubleClick() {
       const tab = this.active + '-' + new Date().getTime();
-      this.$store.commit('DOUBLE_CLICK_TAB', { tab: tab });
+      this.$store.commit('DOUBLE_CLICK_TAB', tab);
     },
   },
 };

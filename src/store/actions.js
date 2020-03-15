@@ -2,7 +2,6 @@ import * as types from './mutation-types';
 import { getToken, setToken, removeToken, getUserId, setUserId } from '@/utils/auth';
 import { notice } from '@/api/json';
 import { statistics, getUserInfo } from '@/api/index';
-import { checkLogin } from '../utils/auth';
 
 export const setFoo = ({ commit }, payload) => {
   commit(types.UPDATE_FOO, payload);
@@ -49,6 +48,14 @@ export const Login = ({ commit }, userInfo) => {
 
 export const ToggleLoginPage = ({ commit }, isShowLoginPage) => {
   commit('TOGGLE_LOGIN_PAGE', isShowLoginPage);
+};
+
+export const ToggleTabBar = ({ commit }, isShowTabBar) => {
+  commit('TOGGLE_TAB_BAR', isShowTabBar);
+};
+
+export const SetTransitionName = ({ commit }, transitionName) => {
+  commit('SET_TRANSITION_NAME', transitionName);
 };
 
 export const GetUserInfo = ({ commit }) => {

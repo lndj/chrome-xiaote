@@ -17,6 +17,39 @@ export function imagePreview(images) {
   });
 }
 
+export function  keyDown(e) {
+  const ESC_KEY_CODE = 27;
+  const W_KEY_CODE = 87;
+
+  const keyCode = e.which;
+  const realKey = String.fromCharCode(e.which);
+  console.log('按键码: ' + keyCode + ' 字符: ' + realKey);
+  // 用户按下 Esc 键
+  if (keyCode === ESC_KEY_CODE) {
+    e.preventDefault();
+    // 关闭图片预览
+    if (window.imagePreviewInstance) {
+      window.imagePreviewInstance.close();
+      window.imagePreviewInstance = null;
+      return;
+    }
+    // 路由回退一步
+    const meta = document.$router.history.current.meta;
+    if (meta.routerLevel && meta.routerLevel > 1) {
+      history.back();
+    }
+  }
+  // 按下 ctrl + w
+  if (keyCode === W_KEY_CODE && (navigator.platform.match('Mac') ? e.metaKey : e.ctrlKey)) {
+    e.preventDefault();
+    window.close();
+  }
+}
+
+export function noScroll() {
+  window.scrollTo(0, 0);
+}
+
 export function firstImageUrl(images) {
   if (!images || images.length === 0) {
     return '';

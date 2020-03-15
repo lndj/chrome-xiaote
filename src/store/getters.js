@@ -6,3 +6,5 @@ export const noticeConfig = state => state.noticeConfig;
 export const userStatistics = state => state.userStatistics;
 export const loginUser = state => state.loginUser;
 export const isShowLoginPage = state => state.isShowLoginPage;
+export const isShowTabBar = state => state.isShowTabBar;
+export const transitionName = state => state.transitionName;
