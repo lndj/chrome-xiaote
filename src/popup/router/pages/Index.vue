@@ -4,7 +4,7 @@
       <van-icon name="search" slot="right" @click="search" />
     </van-nav-bar>
     <div style="height:46px;"></div>
-    <van-notice-bar v-if="isShowNoticeBar" :text="noticeContent" left-icon="volume-o" mode="closeable" @close="closeNoticeBar" />
+    <van-notice-bar v-if="isShowNoticeBar" :text="noticeContent" left-icon="volume-o" :mode="noticeConfig.mode || 'closeable'" @close="closeNoticeBar" @click="clickNoticeBar" />
 
     <van-pull-refresh v-model="refreshing" loading-text="数据加载中..." success-text="数据刷新成功..." @refresh="onRefresh">
       <div v-if="list.length === 0">
@@ -199,6 +199,12 @@ export default {
       const currentTimes = parseInt(times) + 1;
       console.log('本次设置 Cookie 的关闭次数是：' + currentTimes);
       Cookies.set('noticeBarCloseTimes', currentTimes);
+    },
+    clickNoticeBar() {
+      if (this.noticeConfig.mode === 'link') {
+        const win = window.open(this.noticeConfig.url, '_blank');
+        win.focus();
+      }
     },
     comments(item) {
       this.$store.commit('READ_POST', { post: item });
