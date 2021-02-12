@@ -14,9 +14,9 @@
             <br />
             <div class="panel-header-tag">{{ user.tag }}</div>
           </van-col>
-          <van-col span="4" offset="4">
-            <div class="follow-btn" v-if="user.isFollowing" @click="follow(user.objectId, 0)">已关注</div>
-            <div class="follow-btn" v-else @click="follow(user.objectId, 1)">关注</div>
+          <van-col span="5" offset="3">
+            <div class="follow-btn" v-if="user.isFollowing" @click="followUser(user.objectId, 0, user)">已关注</div>
+            <div class="follow-btn" v-else @click="followUser(user.objectId, 1, user)">关注</div>
           </van-col>
         </van-row>
       </div>
@@ -35,7 +35,8 @@
             <van-icon class="comment-icon" name="comment-o" :info="community.commentCount" size="20" />
           </van-col>
           <van-col span="4">
-            <van-icon class="like-icon" name="like-o" :info="community.likes" size="20" />
+            <van-icon v-if="community.isLike" class="like-icon" name="like" :info="community.likes" size="20" />
+            <van-icon v-else class="like-icon" name="like-o" :info="community.likes" size="20" @click="likePost(community, false)" />
           </van-col>
         </van-row>
       </div>
@@ -60,7 +61,8 @@
             <p class="comment-nickname">{{ item.user.nickname }} <van-tag v-if="isShowAuthorTag(item.user.objectId)" plain style="font-size:1px;">作者</van-tag></p>
           </van-col>
           <van-col span="4" offset="4" style="margin-top:8px;padding-left:55px;">
-            <van-icon class="like-icon" name="good-job-o" :info="item.likes" size="20" />
+            <van-icon v-if="item.isLike" class="like-icon" name="good-job" :info="item.likes" size="20" />
+            <van-icon v-else class="like-icon" name="good-job-o" :info="item.likes" size="20" @click="likePost(item, true)" />
           </van-col>
         </van-row>
         <p class="comment-item-content">{{ item.content }}</p>
@@ -91,7 +93,7 @@ import { comments, read } from '../../../api/index';
 import moment from 'moment';
 import { mapGetters } from 'vuex';
 import { Toast } from 'vant';
-import { formatContent, imagePreview, firstImageUrl } from '@/utils/tools';
+import { formatContent, imagePreview, firstImageUrl, followUser, likePost } from '@/utils/tools';
 import VipMarkImage from '@/assets/images/vipMark.png';
 
 export default {
@@ -127,16 +129,11 @@ export default {
     },
   },
   methods: {
-    follow(userId, action) {
-      if (action === 1) {
-        this.$notify('关注功能还未实现');
-      } else {
-        this.$notify('取消关注功能还未实现');
-      }
-    },
+    followUser,
     formatContent,
     imagePreview,
     firstImageUrl,
+    likePost,
     onLoad() {
       this.loading = true;
       this.getComments();
