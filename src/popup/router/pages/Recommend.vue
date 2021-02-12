@@ -24,9 +24,9 @@
               <br />
               <div class="panel-header-tag">{{ item.user.tag }}</div>
             </van-col>
-            <van-col span="4" offset="4">
-              <div class="follow-btn" v-if="item.user.isFollowing" @click="follow(item.user.objectId, 0)">已关注</div>
-              <div class="follow-btn" v-else @click="follow(item.user.objectId, 1)">关注</div>
+            <van-col span="5" offset="3">
+              <div class="follow-btn" v-if="item.user.isFollowing" @click="followUser(item.user.objectId, 0, item.user)">已关注</div>
+              <div class="follow-btn" v-else @click="followUser(item.user.objectId, 1, item.user)">关注</div>
             </van-col>
           </van-row>
         </div>
@@ -44,7 +44,8 @@
               <van-icon class="comment-icon" name="comment-o" :info="item.commentCount" size="20" @click="comments(item)" />
             </van-col>
             <van-col span="4">
-              <van-icon class="like-icon" name="like-o" :info="item.likes" size="20" />
+              <van-icon v-if="item.isLike" class="like-icon" name="like" :info="item.likes" size="20" />
+              <van-icon v-else class="like-icon" name="like-o" :info="item.likes" size="20" @click="likePost(item, false)" />
             </van-col>
           </van-row>
         </div>
@@ -68,7 +69,7 @@ import { communities, recommends } from '@/api/index';
 import moment from 'moment';
 import { Toast } from 'vant';
 import Cookies from 'js-cookie';
-import { formatContent, imagePreview, firstImageUrl } from '@/utils/tools';
+import { formatContent, imagePreview, firstImageUrl, followUser, likePost } from '@/utils/tools';
 import VipMarkImage from '@/assets/images/vipMark.png';
 import { mapGetters } from 'vuex';
 
@@ -119,16 +120,11 @@ export default {
     },
   },
   methods: {
-    follow(userId, action) {
-      if (action === 1) {
-        this.$notify('关注功能还未实现');
-      } else {
-        this.$notify('取消关注功能还未实现');
-      }
-    },
+    followUser,
     formatContent,
     imagePreview,
     firstImageUrl,
+    likePost,
     onLoad() {
       this.loading = true;
       this.getRecommends(this.pageIndex, this.pageSize);

@@ -1,6 +1,6 @@
 {
   "name": "chrome-xiaote",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "description": "Xiaote community on chrome plugin.",
   "author": "Yimaoge",
   "license": "GPL V3",
@@ -26,6 +26,7 @@
     "@vant/touch-emulator": "^1.2.0",
     "axios": "^0.19.0",
     "js-cookie": "^2.2.1",
+    "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "url-loader": "^3.0.0",
     "vant": "^2.5.3",
