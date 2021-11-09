@@ -4,6 +4,7 @@ import UserHome from './pages/Home';
 import Comments from './pages/Comments';
 import Settings from './pages/Settings';
 import About from './pages/About';
+import Account from './pages/Account';
 
 export default [
   {
@@ -11,6 +12,9 @@ export default [
     component: PageIndex,
     meta: {
       keepAlive: true,
+      title: '首页',
+      isShowTabBar: true,
+      routerLevel: 1,
     },
   },
   {
@@ -18,6 +22,8 @@ export default [
     component: PageRecommends,
     meta: {
       keepAlive: true,
+      isShowTabBar: true,
+      routerLevel: 1,
     },
   },
   {
@@ -25,6 +31,10 @@ export default [
     component: UserHome,
     meta: {
       keepAlive: true,
+      noScroll: true,
+      isShowTabBar: true,
+      routerLevel: 1,
+      transitionName: '',
     },
   },
   {
@@ -32,6 +42,8 @@ export default [
     component: Comments,
     meta: {
       keepAlive: false,
+      isShowTabBar: false,
+      routerLevel: 2,
     },
   },
   {
@@ -39,6 +51,10 @@ export default [
     component: Settings,
     meta: {
       keepAlive: true,
+      noScroll: true,
+      isShowTabBar: false,
+      routerLevel: 2,
+      transitionName: '',
     },
   },
   {
@@ -46,6 +62,21 @@ export default [
     component: About,
     meta: {
       keepAlive: true,
+      noScroll: true,
+      isShowTabBar: false,
+      routerLevel: 2,
+      transitionName: '',
+    },
+  },
+  {
+    path: '/account',
+    component: Account,
+    meta: {
+      keepAlive: true,
+      noScroll: true,
+      isShowTabBar: false,
+      routerLevel: 2,
+      transitionName: '',
     },
   },
 ];
