@@ -9,12 +9,12 @@
           <van-col span="6">
             <van-image style="margin-top:6px;margin-bottom:6px;margin-left:6px;" round width="3.8rem" height="3.8rem" :src="user.avatarUrl" />
           </van-col>
-          <van-col span="12">
+          <van-col span="12" style="margin-top: -5px;">
             <div class="panel-header-nickname">{{ user.nickname }}</div>
             <br />
-            <div class="panel-header-tag">{{ user.tag }}</div>
+            <div class="panel-header-tag">{{ user.signature }}</div>
           </van-col>
-          <van-col span="4" offset="2">
+          <van-col span="4" offset="2" @click="goToAccount">
             <van-icon style="margin-top:24px;" size="20" name="arrow" />
           </van-col>
         </van-row>
@@ -23,11 +23,28 @@
 
     <div>
       <van-grid>
-        <van-grid-item><span class="statistics-num">8</span><span class="statistics-name">发布</span></van-grid-item>
-        <van-grid-item><span class="statistics-num">10</span><span class="statistics-name">获赞</span></van-grid-item>
-        <van-grid-item><span class="statistics-num">8</span><span class="statistics-name">关注</span></van-grid-item>
-        <van-grid-item><span class="statistics-num">800</span><span class="statistics-name">粉丝</span></van-grid-item>
+        <van-grid-item
+          ><span class="statistics-num">{{ statistics.communities || 0 }}</span
+          ><span class="statistics-name">发布</span></van-grid-item
+        >
+        <van-grid-item
+          ><span class="statistics-num">{{ statistics.likes || 0 }}</span
+          ><span class="statistics-name">获赞</span></van-grid-item
+        >
+        <van-grid-item
+          ><span class="statistics-num">{{ statistics.followees || 0 }}</span
+          ><span class="statistics-name">关注</span></van-grid-item
+        >
+        <van-grid-item
+          ><span class="statistics-num">{{ statistics.followers || 0 }}</span
+          ><span class="statistics-name">粉丝</span></van-grid-item
+        >
       </van-grid>
+
+      <div v-if="!user.objectId" class="login-block" @click="login">
+        <span>登陆</span>
+      </div>
+
       <!-- <van-row class="staistics-bltock" type="flex" justify="center">
         <van-col span="5"><span class="statistics-num">8</span><span class="statistics-name">发布</span></van-col>
         <van-col span="5"><span class="statistics-num">20</span><span class="statistics-name">获赞</span></van-col>
@@ -58,23 +75,20 @@ export default {
   name: 'Home',
   data() {
     return {
-      community: {},
-      user: {
-        nickname: '一毛哥',
-        objectId: 'kodslkdlskdsdsdsdsd',
-        avatarUrl: AvatarImage,
-        tag: '上海 * 未认证',
-      },
-      refreshing: false,
-      loading: false,
-      comments: [],
+      user: {},
+      statistics: {},
     };
   },
   created() {
-    // document.body.scrollTop = document.documentElement.scrollTop = 0;
+    this.init();
   },
   computed: {
-    ...mapGetters(['currentPost']),
+    ...mapGetters(['userStatistics', 'loginUser']),
+  },
+  watch: {
+    loginUser(value) {
+      this.init();
+    },
   },
   filters: {
     formatTime: function(value) {
@@ -83,27 +97,30 @@ export default {
     },
   },
   methods: {
-    follow(userId, action) {
-      if (action === 1) {
-        this.$notify('关注功能还未实现');
+    init() {
+      const defaultUser = {
+        nickname: '未登录',
+        objectId: null,
+        avatarUrl: AvatarImage,
+        signature: '登陆后使用完整功能',
+      };
+      if (this.loginUser.objectId) {
+        this.user = this.loginUser;
       } else {
-        this.$notify('取消关注功能还未实现');
+        this.user = defaultUser;
+      }
+      const userId = this.user.objectId;
+      if (userId) {
+        this.$store.dispatch('GetStatistics', userId).then(() => {
+          this.statistics = this.userStatistics.stats;
+        });
       }
     },
-    formatContent(value) {
-      if (!value) return '';
-      return value.replace(/(\r\n|\n|\r)/gm, '<br />');
+    login() {
+      this.$store.dispatch('ToggleLoginPage', true);
     },
-    firstImageUrl(images) {
-      if (!images || images.length === 0) {
-        return '';
-      }
-      const imgInfo = images[0];
-      return imgInfo.url;
-    },
-    onLoad() {
-      this.loading = true;
-      this.getComments();
+    goToAccount() {
+      this.$router.push({ path: 'account' });
     },
   },
 };
@@ -135,5 +152,15 @@ export default {
   font-size: 14px;
   font-weight: 100;
   color: gray;
+}
+.login-block {
+  margin: 10px 20px;
+  padding: 10px 20px;
+  text-align: center;
+  display: block;
+  border: 0.1px dashed;
+  background-color: #fff;
+  user-select: none !important;
+  -moz-user-select: none !important;
 }
 </style>

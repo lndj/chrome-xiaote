@@ -8,11 +8,11 @@ const { version } = require('./package.json');
 const path = require('path');
 
 function resolve(dir) {
-  console.log('====================')
+  console.log('====================');
   console.log(path.resolve(__dirname, './node_modules'));
   console.log(__dirname);
   console.log(path.join(__dirname, '.', dir));
-  console.log('====================')
+  console.log('====================');
   return path.join(__dirname, '.', dir);
 }
 
@@ -20,7 +20,7 @@ const config = {
   mode: process.env.NODE_ENV,
   context: __dirname + '/src',
   entry: {
-    'background': './background.js',
+    background: './background.js',
     'popup/popup': './popup/popup.js',
     'options/options': './options/options.js',
   },
@@ -105,12 +105,12 @@ const config = {
       {
         from: 'manifest.json',
         to: 'manifest.json',
-        transform: (content) => {
+        transform: content => {
           const jsonContent = JSON.parse(content);
           jsonContent.version = version;
 
           if (config.mode === 'development') {
-            jsonContent['content_security_policy'] = "script-src 'self' 'unsafe-eval'; object-src 'self'";
+            jsonContent['content_security_policy'] = "script-src 'self' 'unsafe-eval' https://www.google-analytics.com; object-src 'self'";
           }
 
           return JSON.stringify(jsonContent, null, 2);

@@ -5,7 +5,6 @@ import Vant from 'vant';
 import 'vant/lib/index.css';
 import { Lazyload } from 'vant';
 import '@vant/touch-emulator';
-// import '../../utils/touch-emulator';
 
 Vue.use(VueRouter);
 Vue.use(Vant);

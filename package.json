@@ -1,9 +1,9 @@
 {
   "name": "chrome-xiaote",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "description": "Xiaote community on chrome plugin.",
   "author": "Yimaoge",
-  "license": "GPL V3",
+  "license": "GPL-3.0",
   "engines": {
     "node": ">=10"
   },
@@ -26,13 +26,16 @@
     "@vant/touch-emulator": "^1.2.0",
     "axios": "^0.21.1",
     "js-cookie": "^2.2.1",
+    "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "url-loader": "^3.0.0",
     "vant": "^2.5.3",
     "vue": "^2.6.10",
+    "vue-gtag": "^1.6.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
-    "webextension-polyfill": "^0.3.1"
+    "webextension-polyfill": "^0.3.1",
+    "minimist": "1.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
